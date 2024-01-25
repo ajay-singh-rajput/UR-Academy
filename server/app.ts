@@ -38,8 +38,8 @@ import fileUpload from 'express-fileupload';
 app.use(fileUpload());
 
 import { ErrorHandler } from './src/utils/ErrorHandler';
-import indexRouter from './src/routes/indexRoutes'
-app.get('/',indexRouter);
+import indexRouter from './src/routes/loginRoutes'
+app.use('/',indexRouter);
 app.all('*',(req, res, next)=>{
     next(new ErrorHandler(`Requested URL Bot Found ${req.url}`,404))
 })

@@ -23,6 +23,9 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.5",
     "@types/mongoose": "^5.11.97",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
