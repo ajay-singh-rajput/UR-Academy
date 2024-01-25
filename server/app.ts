@@ -4,7 +4,9 @@ import { generatedErrors } from './src/middlewares/error';
 dotenv.config({path:"./.env"});
 const app = express();
 
-
+// db connection
+import { connectDatabase } from './src/models/database';
+connectDatabase();
 
 // logger npm i --save-dev @types/morgan
 import logger from 'morgan';
@@ -36,7 +38,8 @@ import fileUpload from 'express-fileupload';
 app.use(fileUpload());
 
 import { ErrorHandler } from './src/utils/ErrorHandler';
-app.get('/',);
+import indexRouter from './src/routes/indexRoutes'
+app.get('/',indexRouter);
 app.all('*',(req, res, next)=>{
     next(new ErrorHandler(`Requested URL Bot Found ${req.url}`,404))
 })
