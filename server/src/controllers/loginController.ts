@@ -20,16 +20,28 @@ export const registerUser = catchAsyncError(async (req:Request, res:Response, ne
     const vCode = `${Math.floor(Math.random()*999) + 1000}`;
     user.verifyCode = vCode
     await user.save();
-    const url = `${req.protocol}://${req.get('host')}/user/forgot-link/${user._id}/${vCode}`;
+    const url = `${req.protocol}://${req.get('host')}/user/verify-link/${user._id}/${vCode}`;
     const msg = `click blow link to verify your email address`
     sendMail(req, res, next, url, vCode, msg);
     res.json({message:'Please verify email address to get login'});
 })
 
-export const verifyUser = catchAsyncError(async(req:Request, res:Response, next:NextFunction)=>{
+export const verifyUserOTP = catchAsyncError(async(req:Request, res:Response, next:NextFunction)=>{
     const user = await UserModel.findOne({email:req.params.email})
     if(!user) return next(new ErrorHandler("User not found", 404));
-    if(user.verifyCode !== req.body.otp)
+    if(user.verifyCode !== req.body.otp) return next(new ErrorHandler('Wrong OTP', 500));
+    user.isVerified = true;
+    user.verifyCode = '';
+    user.save();
+    sendToken(user, 201, res)
+})
+export const verifyUserLink = catchAsyncError(async(req:Request, res:Response, next:NextFunction)=>{
+    const user = await UserModel.findOne({email:req.params.email})
+    if(!user) return next(new ErrorHandler("User not found", 404));
+    if(user.verifyCode !== req.params.code) return next(new ErrorHandler('Invalid Link', 500));
+    user.isVerified = true;
+    user.verifyCode = '';
+    user.save();
     sendToken(user, 201, res)
 })
 

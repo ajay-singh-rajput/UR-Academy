@@ -1,5 +1,4 @@
 import nodeMailer from 'nodemailer';
-import UserModel from '../models/userModel';
 import { NextFunction, Request, Response } from 'express';
 import { ErrorHandler } from './ErrorHandler';
 
