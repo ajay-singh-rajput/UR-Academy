@@ -35,6 +35,7 @@
     "express": "^4.18.2",
     "express-fileupload": "^1.4.3",
     "express-session": "^1.17.3",
+    "imagekit": "^4.1.4",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0"
   }
