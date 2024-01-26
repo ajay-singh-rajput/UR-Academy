@@ -16,7 +16,20 @@ export const homePage = catchAsyncError(async (req:Request, res:Response, next:N
 
 
 export const registerUser = catchAsyncError(async (req:Request, res:Response, next:NextFunction)=>{
-    const user = await new UserModel(req.body).save();
+    const user =  new UserModel(req.body)
+    const vCode = `${Math.floor(Math.random()*999) + 1000}`;
+    user.verifyCode = vCode
+    await user.save();
+    const url = `${req.protocol}://${req.get('host')}/user/forgot-link/${user._id}/${vCode}`;
+    const msg = `click blow link to verify your email address`
+    sendMail(req, res, next, url, vCode, msg);
+    res.json({message:'Please verify email address to get login'});
+})
+
+export const verifyUser = catchAsyncError(async(req:Request, res:Response, next:NextFunction)=>{
+    const user = await UserModel.findOne({email:req.params.email})
+    if(!user) return next(new ErrorHandler("User not found", 404));
+    if(user.verifyCode !== req.body.otp)
     sendToken(user, 201, res)
 })
 
@@ -24,11 +37,11 @@ export const registerUser = catchAsyncError(async (req:Request, res:Response, ne
 export const loginUser = catchAsyncError(async(req:Request, res:Response, next:NextFunction)=>{
     const user = await UserModel.findOne({email:req.body.email}).select("+password").exec();
     if(!user) return next(new ErrorHandler("User not found", 404))
-
     const isMatch = user.comparePassword(req.body.password);
-    if(!isMatch) return next (new ErrorHandler("Wrong Credentials", 500));
-    sendToken(user, 200, res)
-    // res.status(201).json(user)
+if(!isMatch) return next (new ErrorHandler("Wrong Credentials", 500));
+if(!user.isVerified) return next (new ErrorHandler("Please verify your email address to get login", 500));
+sendToken(user, 200, res)
+// res.status(201).json(user)
 });
 
 
@@ -42,19 +55,26 @@ export const userSendMail = catchAsyncError (async(req:Request, res:Response, ne
     if(!user){
         return next(new ErrorHandler("User not found with this email address", 404))
     }
-    const url = `${req.protocol}://${req.get('host')}/user/forgot-link/${user._id}`
-    sendMail(req, res, next, url);
+    const vCode = `${Math.floor(Math.random()*999) + 1000}`;
+    const url = `${req.protocol}://${req.get('host')}/user/forgot-link/${user._id}/${vCode}`
+    const msg = `click blow link to reset password`
+    sendMail(req, res, next, url, vCode, msg);
     user.resetPasswordToken = 1;
     await user.save();
-    res.json({user, url})
+    res.json({user, url});
 })
 
 export const userForgetLink = catchAsyncError (async(req:Request, res:Response, next:NextFunction)=>{
-    const user = await UserModel.findById(req.params.id).exec()
-    if(!user) return next( new ErrorHandler("User not found with email address", 404))
+    const user = await UserModel.findById(req.params.id).exec();
+    if(!user) return next( new ErrorHandler("User not found", 404))
     if(user.resetPasswordToken === 1){
-        user.password = req.body.password;
         user.resetPasswordToken = 0;
+        if(user.verifyCode === req.params.code){ 
+            user.verifyCode = ''
+            await user.save();
+            return next(new ErrorHandler('Invalid Reset Password Link', 404))
+        }
+        user.password = req.body.password;
         await user.save();
     } else{
         return next( new ErrorHandler("Invalid Reset Password Link", 404))

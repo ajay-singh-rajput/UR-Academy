@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from 'express';
 import { ErrorHandler } from './ErrorHandler';
 
 
-export const sendMail = (req:Request, res:Response, next:NextFunction, url:string)=>{
+export const sendMail = (req:Request, res:Response, next:NextFunction, url:string, vCode:string, msg:string)=>{
     const transport = nodeMailer.createTransport({
         service:'gmail',
         host:'smpt.gmail.com',
@@ -19,7 +19,7 @@ export const sendMail = (req:Request, res:Response, next:NextFunction, url:strin
         from:'Indian Privet Limited',
         to:req.body.email,
         subject:"Password reset link",
-        html:`<h1>click blow link to reset password </h1><br/> <h1><a>${url}</a></h1>`
+        html:`<h1>Your OTP:- <strong>${vCode}</strong> <br/> or ${msg}</h1><br/> <h1><a>${url}</a></h1>`
     };
     transport.sendMail(mailOption, (err, info)=>{
         if(err){
