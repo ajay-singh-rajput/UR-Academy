@@ -23,17 +23,9 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@types/bcrypt": "^5.0.2",
     "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/mongoose": "^5.11.97",
-    "cookie-parser": "^1.4.6",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.0",
-    "express": "^4.18.2",
-    "express-fileupload": "^1.4.3",
-    "express-session": "^1.17.3",
-    "mongoose": "^8.1.1",
-    "morgan": "^1.10.0"
+    "@types/nodemailer": "^6.4.14",
   }
 }

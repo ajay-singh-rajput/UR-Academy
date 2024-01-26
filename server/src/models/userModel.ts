@@ -2,7 +2,7 @@ import mongoose, { Schema, Document } from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from 'bcryptjs';
 
-interface IUser extends Document {
+export interface IUser extends Document {
 userType:'student' | 'teacher' | 'admin' ;
 firstName:string;
 lastName:string;
@@ -16,6 +16,7 @@ avatar:{
     fileId:string;
     url:string;
 };
+
 comparePassword(password:string):boolean;
 getJWTToken():string;
 }
