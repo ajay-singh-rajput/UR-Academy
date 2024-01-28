@@ -32,7 +32,8 @@ const courseModel:Schema<Course> = new mongoose.Schema<Course>({
     subscriber:[{type:mongoose.Schema.Types.ObjectId, ref:'User'}],
     price:{
         type:Number,
-        default:0
+        default:0,
+        require:true
     },
     chapter:[{
         id:String,

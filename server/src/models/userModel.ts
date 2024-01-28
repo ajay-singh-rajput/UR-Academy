@@ -2,6 +2,8 @@ import mongoose, { Schema, Document } from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from 'bcryptjs';
 
+
+
 export interface IUser extends Document {
 userType:'student' | 'teacher' | 'admin' ;
 firstName:string;
@@ -14,11 +16,12 @@ password:string;
 verifyCode:string;
 isVerified:boolean;
 resetPasswordToken:number;
+createdCourses:(mongoose.Schema.Types.ObjectId | string)[];
+subscribedCourses:(mongoose.Schema.Types.ObjectId | string)[];
 avatar:{
     fileId:string;
     url:string;
 };
-
 comparePassword(password:string):boolean;
 getJWTToken():string;
 }
@@ -86,7 +89,9 @@ const userModel:Schema<IUser> = new mongoose.Schema({
     isVerified:{
         type:Boolean,
         default:false
-    }
+    },
+    subscribedCourses:[{type:mongoose.Schema.Types.ObjectId, ref:'Course'}],
+    createdCourses:[{type:mongoose.Schema.Types.ObjectId, ref:'Course'}],
 },{timestamps:true});
 
 userModel.pre<IUser>('save',function(){
