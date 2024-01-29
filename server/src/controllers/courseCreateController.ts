@@ -19,7 +19,20 @@ export const createCourse = catchAsyncError( async(req:IGetUserAuthInfoRequest, 
 
 
 export const createChapter = catchAsyncError(async(req:IGetUserAuthInfoRequest, res:Response, next:NextFunction)=>{
-    const course = await CourseModel.findById(req.params.id);
-    if(!course)return next(new ErrorHandler('course does not present', 404));
-    
+    // const course = await CourseModel.findById(req.params.id);
+    // if(!course)return next(new ErrorHandler('course does not present', 404));
+    // const files = req.files
+    // if(!files)return next(new ErrorHandler('course does not present', 404));
+    // const media = files.map((val, i)=>{
+    //     return {
+    //         type:"",
+    //         url:'url'+val.filename
+    //     }
+    // })
+    // req.body.file = media
+    // console.log(req.body);
+    res.send({
+        data:"result",
+        status:true
+    })
 })

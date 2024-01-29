@@ -39,7 +39,9 @@ app.use(fileUpload());
 
 import { ErrorHandler } from './src/utils/ErrorHandler';
 import indexRouter from './src/routes/loginRoutes'
+import courseRouter from './src/routes/courseRoutes'
 app.use('/',indexRouter);
+app.use('/course',courseRouter);
 app.all('*',(req, res, next)=>{
     next(new ErrorHandler(`Requested URL Bot Found ${req.url}`,404))
 })
