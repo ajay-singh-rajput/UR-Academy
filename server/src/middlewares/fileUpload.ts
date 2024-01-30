@@ -22,7 +22,7 @@ const storage = multerS3({
     }
 });
 
-function checkFileType(file:Express.Multer.File, cb:(error: any, acceptFile: boolean) => void)){
+function checkFileType(file:any, cb:Function){
     const fileTypes:RegExp = /jpeg|jpg|png|gif|mp4|mov|png/;
 
     const extname:Boolean = fileTypes.test(path.extname(file.originalname).toLowerCase());
@@ -43,5 +43,6 @@ const upload = multer({
     },
 });
 
-export const uploadMiddleWare = upload
+const uploadMiddleWare = upload;
 
+export default uploadMiddleWare;
