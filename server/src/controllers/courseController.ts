@@ -4,6 +4,8 @@ import CourseModel from "../models/courseModel";
 import { IGetUserAuthInfoRequest } from "../middlewares/auth";
 import UserModel from "../models/userModel";
 import { ErrorHandler } from "../utils/ErrorHandler";
+import { v4 as uuid } from 'uuid';
+
 
 interface MulterS3File extends Express.Multer.File {
     location?: string;
@@ -39,13 +41,23 @@ export const createChapter = catchAsyncError(async(req:IGetUserAuthInfoRequest, 
             type: s3File.mimetype
         };
       }
-      try {
+      const newChapter = {
+        id:uuid(),
+        title:req.body.title,
+        description:req.body.description,
+        sourceLink:req.body.sourceLink,
+        mediaLink:data.url
+      }
+      course.chapter.push(newChapter); 
         res.send({
           data: data,
           status: true
-        });
-      } catch (error) {
-        res.status(403).json({ status: false, error: error });
-      }
-       
+        }); 
+});
+
+export const editChapter = catchAsyncError( async(req:IGetUserAuthInfoRequest, res:Response, next:NextFunction)=>{
+  const course = await CourseModel.findById(req.params.courseID).exec();
+  if(!course) return next(new ErrorHandler('Course does not available', 404));
+  const chapterDetails = course.chapter.findIndex((thisValue, index)=>{if(thisValue.id === req.params.chapterID){return {thisValue:thisValue, index:index}}});
+  course.chapter[chapterDetails] = 
 })
