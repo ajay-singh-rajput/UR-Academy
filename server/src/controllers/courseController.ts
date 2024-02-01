@@ -98,5 +98,10 @@ export const deleteCourse = catchAsyncError(async(req:IGetUserAuthInfoRequest, r
 export const buyCourse = catchAsyncError(async(req:IGetUserAuthInfoRequest, res:Response, next:NextFunction)=>{
   const user = await UserModel.findById(req.id).exec();
   const course = await CourseModel.findById(req.params.courseID);
-  
-})
+  user?.subscribedCourses.push(course?._id);
+  course?.subscriber.push(user?._id);
+  await user?.save();
+  res.json({message:'course purchased successfully'});
+});
+
+

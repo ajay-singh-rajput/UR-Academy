@@ -14,7 +14,6 @@ export const homePage = catchAsyncError(async (req:Request, res:Response, next:N
     res.json({message:'this is home page'})
 })
 
-
 export const registerUser = catchAsyncError(async (req:Request, res:Response, next:NextFunction)=>{
     const user =  new UserModel(req.body)
     const vCode = `${Math.floor(Math.random()*999) + 1000}`;
