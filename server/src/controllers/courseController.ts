@@ -91,3 +91,12 @@ export const deleteCourse = catchAsyncError(async(req:IGetUserAuthInfoRequest, r
   await user?.save();
   res.json({message:"Course Delete successfully"});
 });
+
+
+//! managing subscription of courses
+
+export const buyCourse = catchAsyncError(async(req:IGetUserAuthInfoRequest, res:Response, next:NextFunction)=>{
+  const user = await UserModel.findById(req.id).exec();
+  const course = await CourseModel.findById(req.params.courseID);
+  
+})
