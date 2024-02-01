@@ -5,6 +5,13 @@ import { IGetUserAuthInfoRequest } from "../middlewares/auth";
 import UserModel from "../models/userModel";
 import { ErrorHandler } from "../utils/ErrorHandler";
 import { v4 as uuid } from 'uuid';
+import Razorpay = require("razorpay");
+import { validatePaymentVerification } from "razorpay/dist/utils/razorpay-utils";
+
+const instance = new Razorpay({
+  key_id: process.env.RAZOR_PAY_ID || '',
+  key_secret: process.env.RAZOR_PAY_SECRET || '',
+});
 
 
 interface MulterS3File extends Express.Multer.File {
@@ -95,13 +102,36 @@ export const deleteCourse = catchAsyncError(async(req:IGetUserAuthInfoRequest, r
 
 //! managing subscription of courses
 
-export const buyCourse = catchAsyncError(async(req:IGetUserAuthInfoRequest, res:Response, next:NextFunction)=>{
+
+export const generateOrderId = catchAsyncError(async(req:IGetUserAuthInfoRequest, res:Response, next:NextFunction)=>{
   const user = await UserModel.findById(req.id).exec();
   const course = await CourseModel.findById(req.params.courseID);
+  const options = {
+    amount : (course?.price || 0) * 100,
+    currency: "INR",
+    receipt:`${uuid()}`
+  };
+  instance.orders.create(options, function(err, order){
+    // console.log(order);
+    res.send(order);
+  })
+  
+});
+
+export const confirmOrder = catchAsyncError(async(req:IGetUserAuthInfoRequest, res:Response, next:NextFunction)=>{
+  const user = await UserModel.findById(req.id).exec();
+  const course = await CourseModel.findById(req.params.courseID);
+  let razorpayPaymentId = req.body.response.razorpay_payment_id;
+  let razorpayOrderId = req.body.response.razorpay_order_id;
+  let signature = req.body.response.razorpay_signature;
+  let secret = process.env.RAZOR_PAY_SECRET || '';
+
+  const result = validatePaymentVerification({"order_id":razorpayOrderId, "payment_id":razorpayPaymentId},signature, secret);
+  if(!result)return  next(new ErrorHandler('payment failed by your bank', 500));
   user?.subscribedCourses.push(course?._id);
   course?.subscriber.push(user?._id);
   await user?.save();
-  res.json({message:'course purchased successfully'});
+  res.send(result);
 });
 
 

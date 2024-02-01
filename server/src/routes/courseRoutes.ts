@@ -1,6 +1,6 @@
 import express, { Router } from 'express';
 import { isAuthenticated } from '../middlewares/auth';
-import { buyCourse, createChapter, createCourse, deleteChapter, deleteCourse, editChapter, editCourse } from '../controllers/courseController';
+import {  confirmOrder, createChapter, createCourse, deleteChapter, deleteCourse, editChapter, editCourse, generateOrderId } from '../controllers/courseController';
 import upload from '../middlewares/fileUpload';
 const router:Router = express.Router();
 
@@ -25,7 +25,10 @@ router.get('/delete-chapter/:courseID/:chapterID', isAuthenticated, deleteChapte
 //# POST /course/upload/file
 router.post('/upload/file', isAuthenticated, upload.single('file'), createChapter);
 
-//# GET /course/buy-course/:courseID
-router.get('/buy-course/:courseID', buyCourse);
+//# POST /course/buy-course/generate-orderID/:courseID
+router.post('/buy-course/generate-orderID/:courseID', generateOrderId);
+
+//# POST /course/buy-course/confirm-payment/:courseID
+router.post('/buy-course/confirm-payment/:courseID', confirmOrder);
 
 export default router
