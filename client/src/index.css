@@ -4,61 +4,6 @@
 
 /* styles.css */
 
-/* @import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities'; */
-
-.navbar {
-  background-color: #222831;
-  box-shadow: 0 2px 4px rgba(57, 62, 70, 0.5);
-}
-
-.nav-link {
-  color: #00adb5;
-  transition: color 0.3s ease;
-}
-
-.nav-link:hover {
-  color: #eeeeee;
-  font-weight: bold;
-}
-
-.menu-icon {
-  cursor: pointer;
-  color: #00adb5;
-}
-
-.dropdown {
-  display: none;
-}
-
-.menu-icon.open + .dropdown {
-  display: block;
-}
-
-@media (min-width: 768px) {
-  .menu-icon {
-    display: none;
-  }
-
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 20px;
-  }
-
-  .dropdown {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    background-color: #222831;
-    box-shadow: 0 2px 4px rgba(57, 62, 70, 0.5);
-    top: 60px;
-    right: 0;
-  }
+.navContainer{
+  z-index: 99;
 }

@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
 import navCss from '../modulCss/Nav.module.css'
 import { Link, NavLink } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
+import { RiUserSmileLine } from "@remixicon/react";
 
 
 const Navbar = () => {
 
+
+
   const [ariaExpend, setAriaExpend] = useState(false);
+  
 
   const parentVariant = {
     initial:{
@@ -64,11 +68,19 @@ const Navbar = () => {
 
   
   return (
+    <AnimatePresence>
     <motion.nav  className={`w-screen bg-slate-700 text-cyan-50 ${navCss.navbar}`}>
-      <div className='w-screen flex justify-between px-3 items-center h-14'>
-        <span className={`${navCss.logo}`}>UR-Academy</span>
-        <span className='flex h-[10vh] items-center gap-2'>
-          <span className='hover:text-cyan-300 cursor-pointer md:block hidden'>Profile</span> 
+      <form action="" className={`${navCss.searchBar} absolute m-auto top-0 left-[50%] translate-x-[-50%] -translate-y-3`}>
+  <input type="search" className={`${navCss.searchInput}`} name="search" pattern=".*\S.*" required/>
+  <button className={`${navCss.searchBtn}`} type="submit">
+    <span>Search</span>
+  </button>
+</form>
+      <div className='w-screen relative flex justify-between px-3 items-center h-14'>
+        <span className={`${navCss.logo}`}>UR-Academy </span>
+        <span className='flex justify-center relative h-[10vh] items-center gap-2'>
+        
+          <span className='hover:text-cyan-300 cursor-pointer md:block hidden'>Profile</span> <RiUserSmileLine size={36} className='md:hidden'/>
           <NavLink   className={`bg-slate-800 p-2 px-5 md:block hidden rounded-md ${navCss.shadow} ${(e:any)=>{return e.isActive? `text-cyan-300`: ``}}`} to='/login'>Log-In</NavLink>
           <NavLink className={`bg-slate-600 p-2 px-5 md:block hidden rounded-md ${navCss.shadow}`} to='/register'>Register</NavLink>
           <button className={`${navCss.menu} ${ariaExpend? navCss.opened :``}`} onClick={()=>setAriaExpend(!ariaExpend)} aria-label="Main Menu">
@@ -83,9 +95,9 @@ const Navbar = () => {
         <div className={`flex-col md:flex-row  flex z-10  ${navCss.menuInside}`}>
         
         <motion.div variants={menuChildren2Variant}  className='flex flex-col gap-2 w-[100%] md:w-1/2 text-slate-400 bg-slate-900'> 
-        {['Profile', 'About', 'Courses', 'Contact Us'].map((elem)=>{
-          return <div className='h-[100%] border-b-2 border-slate-400 p-3 pl-6'>
-            <Link key={elem} className={`from-neutral-200 overflow-hidden ${navCss.linkTag}`} to={`/${elem}`}><motion.span variants={menuChildren3Variant} animate={ariaExpend?'animate':'exit'} initial="initial" exit='exit' transition={{ease:[0.76, 0, 0.24, 1], delay:1.2, duration:0.4}}>{elem}</motion.span></Link>
+        {['Profile', 'About', 'Courses', 'Contact Us'].map((elem, ind)=>{
+          return <div key={ind} className='h-[100%] border-b-2 border-slate-400 p-3 pl-6'>
+            <Link  className={`from-neutral-200 overflow-hidden ${navCss.linkTag}`} to={`/${elem}`}><motion.span variants={menuChildren3Variant} animate={ariaExpend?'animate':'exit'} initial="initial" exit='exit' transition={{ease:[0.76, 0, 0.24, 1], delay:1.2, duration:0.4}}>{elem}</motion.span></Link>
           </div>
         })}
          
@@ -97,6 +109,7 @@ const Navbar = () => {
 
       </motion.div>
     </motion.nav>
+    </AnimatePresence>
   )
 }
 

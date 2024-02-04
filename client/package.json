@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@iconscout/react-unicons": "^2.0.2",
+    "@remixicon/react": "^4.1.1",
     "@types/react-router-dom": "^5.3.3",
     "framer-motion": "^11.0.3",
+    "locomotive-scroll": "^5.0.0-beta.11",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.0",
