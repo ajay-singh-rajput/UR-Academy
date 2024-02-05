@@ -1,39 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SignCss from './Sign.module.css';
-import { RiLock2Fill, RiMailLine, RiUserLine } from '@remixicon/react';
+import { RiLock2Fill, RiMailLine } from '@remixicon/react';
 import { Link } from 'react-router-dom';
 
-
 const LogIn = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // Add your login logic here
+  };
+
   return (
     <>
-    <div className={`${SignCss.body}`}>
-      <div className={`${SignCss.container}`}>
-        <div className={`${SignCss.form} ${SignCss.signup}`}>
-          <h2>Log In</h2>
-          
-          <div className={`${SignCss.inputBox}`}>
-            <input type="text" required={true} />
-            <i ><RiMailLine/></i>
-            <span>email address</span>
+      <div className={`${SignCss.body}`}>
+        <div className={`${SignCss.container}`}>
+          <div className={`${SignCss.form} ${SignCss.signup}`}>
+            <h2>Log In</h2>
+            <form onSubmit={handleSubmit}>
+              <div className={`${SignCss.inputBox}`}>
+                <input type="text" value={email} onChange={handleEmailChange} required={true} />
+                <i><RiMailLine /></i>
+                <span>email address</span>
+              </div>
+              <div className={`${SignCss.inputBox}`}>
+                <input type="password" value={password} onChange={handlePasswordChange} required={true} />
+                <i><RiLock2Fill /></i>
+                <span>password</span>
+              </div>
+              <div className={`${SignCss.inputBox}`}>
+                <input type="submit" value="Log In" />
+              </div>
+            </form>
+            <p>
+              Not Registered? <Link to="/register" className={`${SignCss.create}`}>Create an account</Link>
+            </p>
           </div>
-          
-          <div className={`${SignCss.inputBox}`}>
-            <input type="password" required={true} />
-            <i ><RiLock2Fill/></i>
-            <span>password</span>
-          </div>
-          <div className={`${SignCss.inputBox}`}>
-            <input type="submit" value="Create Account" />
-          </div>
-          <p>
-            Not Registered ? <Link to="/register" className={`${SignCss.create}`}>Create an account</Link>
-          </p>
         </div>
       </div>
-      </div>
     </>
-  )
-}
+  );
+};
 
-export default LogIn
+export default LogIn;

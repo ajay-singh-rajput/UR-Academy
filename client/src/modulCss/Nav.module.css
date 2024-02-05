@@ -41,6 +41,7 @@ box-shadow: 3px 3px 6.5px -0.5px #000000;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  z-index: 55;
   
 }
 .menuInside{
@@ -137,6 +138,19 @@ box-shadow: inset 15px 15px 30px #141a22,
 
   .linkTag{
     font-size: 5vmax;
+  }
+  .optionContainer{
+    background: rgba(15,23,42,0.25);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(15,23,42,0.125);
+  }
+  
+  .glassDiv{
+    background: rgba(71,85,105,0.25);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(71,85,105,0.125);;
   }
   
 

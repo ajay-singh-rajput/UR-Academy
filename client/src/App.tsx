@@ -12,7 +12,7 @@ const App = () => {
   return (
     <>
     <div className='pt-[11vh] border-t-2 bg-[#223243] w-screen min-h-screen'>
-      <div className='fixed top-0 left-0 w-screen h-screen navContainer'>
+      <div className=''>
 
     <Navbar />
       </div>
