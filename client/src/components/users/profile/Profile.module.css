@@ -1,0 +1,10 @@
+.dpDiv{
+    border: 10px solid #475569;
+    /* position: absolute; */
+    
+}
+.profileInfoDiv{
+    -webkit-box-shadow: 0 0 21px -1px #000000;
+-moz-box-shadow: 0 0 21px -1px #000000;
+box-shadow: 0 0 21px -1px #000000;
+}

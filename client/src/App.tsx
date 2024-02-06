@@ -3,6 +3,7 @@ import Navbar from './components/Navbar'
 import { Route, Routes } from 'react-router-dom'
 import SignIn from './components/users/forms/SignIn'
 import LogIn from './components/users/forms/LogIn'
+import ProfileView from './components/users/profile/ProfileView'
 // import LocomotiveScroll from 'locomotive-scroll';
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
     <Routes>
       <Route path='/register' element={<SignIn/>}/>
       <Route path='/login' element={<LogIn/>}/>
+      <Route path='/Profile' element={<ProfileView/>}/>
     </Routes>
     </div>
 
