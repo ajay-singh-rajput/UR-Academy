@@ -21,7 +21,7 @@ const ProfileView = () => {
               <span className={`text-[#d1e1e7ce] flex items-center gap-2`}><RiMailLine/> yourmail@gmail.com</span>
               </div>
             </div>
-            <div className={`w-full h-full`}></div>
+            <div className={`w-full h-screen`}></div>
         </div>
     </div>
     
