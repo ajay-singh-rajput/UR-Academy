@@ -36,17 +36,26 @@ const SignIn = () => {
         <div className={`${SignCss.container}`}>
           <div className={`${SignCss.form} ${SignCss.signup}`}>
             <h2>Sign Up</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className={`flex flex-col gap-2`}>
+              <div className={`flex flex-col md:flex-row g-2 relative`}>
               <div className={`${SignCss.inputBox}`}>
                 <input type="text" value={username} onChange={handleUsernameChange} required={true} />
                 <i><RiUserLine /></i>
-                <span>username</span>
+                <span>First Name</span>
               </div>
+              <div className={`${SignCss.inputBox}`}>
+                <input type="text" value={username} onChange={handleUsernameChange} required={true} />
+                <i ><RiUserLine /></i>
+                <span>Last Name</span>
+              </div>
+              </div>
+              
               <div className={`${SignCss.inputBox}`}>
                 <input type="text" value={email} onChange={handleEmailChange} required={true} />
                 <i><RiMailLine /></i>
                 <span>email address</span>
               </div>
+              <div className={`flex flex-col md:flex-row g-2 relative`}>
               <div className={`${SignCss.inputBox}`}>
                 <input type="password" value={password} onChange={handlePasswordChange} required={true} />
                 <i><RiLock2Fill /></i>
@@ -61,6 +70,7 @@ const SignIn = () => {
                 />
                 <i><RiLock2Fill /></i>
                 <span>confirm password</span>
+              </div>
               </div>
               <div className={`${SignCss.inputBox}`}>
                 <input type="submit" value="Create Account" />

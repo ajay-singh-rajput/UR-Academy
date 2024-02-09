@@ -21,13 +21,21 @@ const ProfileView = () => {
               </span>
               <span className={`text-[#d1e1e7ce] flex items-center gap-2`}><RiMailLine/> yourmail@gmail.com</span>
               </div>
+              
             </div>
-            <div className={`flex items-center justify-center flex-col text-center gap-2 my-2`}>
+            <div className={`flex flex-col bg-red-800 gap-2`}>
+              <span className={`p-2`}>Options</span>
+              <div>
+                <span></span>
+              </div>
+            </div>
+            <div className={`flex items-center justify-center flex-col text-center gap-2 my-2 `}>
               <p className={`text-[#33ffff] `}>Tips</p>
               <h3>Do you know ?</h3>
               <p className={`text-[#d1e1e7ad] `}>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum labore, ea ex consectetur quae explicabo suscipit neque alias magnam cupiditate vitae modi.</p>
             </div>
-            <div className={`w-full h-screen flex gap-2 flex-wrap items-center justify-center`}> <Card name='ajay ji'/> <Card/> <Card/> <Card/></div>
+            <div><h3>Your Courses</h3></div>
+            <div className={`w-full h-fit flex gap-2 flex-wrap items-center justify-center bg-[#223243]`}> <Card/> <Card/> <Card/> <Card/></div>
         </div>
     </div>
     

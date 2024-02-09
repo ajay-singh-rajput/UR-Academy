@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import navCss from '../modulCss/Nav.module.css'
 import { Link, NavLink } from 'react-router-dom'
 import { AnimatePresence, motion, useAnimation } from 'framer-motion'
-import { RiSearch2Line, RiUserSmileLine } from "@remixicon/react";
+import { RiSearch2Line, RiUser2Line } from "@remixicon/react";
 
 
 const Navbar = () => {
@@ -78,7 +78,7 @@ const [isSearchOpen, setIsSearchOpen] = useState(false);
       <div className='w-screen relative flex justify-between px-3 items-center h-14'>
         <span className={`${navCss.logo}`}>UR-Academy </span>
         <span className='flex justify-center relative h-[10vh] items-center gap-2'>
-          <span className='hover:text-cyan-300 cursor-pointer md:block hidden'>Profile</span> <RiUserSmileLine size={36} className='md:hidden' />
+          <span className='hover:text-cyan-300 cursor-pointer md:block hidden'>Profile</span> <RiUser2Line size={36} className='md:hidden' />
           <NavLink className={`bg-slate-800 p-2 px-5 md:block hidden rounded-md ${navCss.shadow} ${(e: any) => { return e.isActive ? `text-cyan-300` : `` }}`} to='/login'>Log-In</NavLink>
           <NavLink className={`bg-slate-600 p-2 px-5 md:block hidden rounded-md ${navCss.shadow}`} to='/register'>Register</NavLink>
           <button className={`${navCss.menu} ${isMenuOpen ? navCss.opened : ``}`} onClick={toggleMenu} aria-label="Main Menu">

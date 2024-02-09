@@ -18,7 +18,7 @@ app.use(express.urlencoded({extended:false}));
 
 // cors  npm i --save-dev @types/cors
 import cors from 'cors'
-app.use(cors());
+app.use(cors({credentials:true, origin:true,}));
 
 
 
