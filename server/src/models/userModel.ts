@@ -29,7 +29,7 @@ getJWTToken():string;
 const userModel:Schema<IUser> = new mongoose.Schema({
     userType:{
         type:String,
-        enum:['student','teacher','admin']
+        enum:['Student','Teacher','Admin']
     },
     firstName:{
         type:String,
@@ -56,7 +56,7 @@ const userModel:Schema<IUser> = new mongoose.Schema({
     },
     gender:{
         type:String,
-        enum:['male','female','other']
+        enum:['Male','Female','Other']
     },
     email:{
         type:String,
