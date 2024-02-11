@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SignCss from './Sign.module.css';
-import { RiFile2Line, RiLock2Fill, RiMailLine, RiUser5Line, RiUserLine, RiUserLocationLine } from '@remixicon/react';
-import { Link } from 'react-router-dom';
+import { RiFile2Line, RiLock2Fill, RiMailLine, RiPhoneLine, RiUser5Line, RiUserLine, RiUserLocationLine } from '@remixicon/react';
+import { Link, useNavigate } from 'react-router-dom';
+import { asyncSignUpUser } from '../../store/actions/userActions';
+import { useAppDispatch, useAppSelector } from '../../store/store';
 
 const SignIn = () => {
+  const dispatch = useAppDispatch()
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -13,6 +16,20 @@ const SignIn = () => {
   const [gender, setGender] = useState('');
   const [city, setCity] = useState('');
   const [accountType, setAccountType] = useState('');
+
+  const {isAuth} = useAppSelector(state=>state.user);
+  const navigate = useNavigate()
+
+  const formData = {
+    firstName: firstName,
+    lastName:lastName,
+    email:email,
+    password:password,
+    contact:contact,
+    gender:gender,
+    city:city,
+    accountType:accountType
+  }
 
   const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(event.target.value);
@@ -52,8 +69,17 @@ const SignIn = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Add your form submission logic here
+    // console.log(formData)
+    dispatch(asyncSignUpUser(formData));
+   
   };
+  useEffect(() => {
+    isAuth && navigate('/Profile')
+  
+    return () => {
+      
+    }
+  }, [isAuth])
 
   return (
     <>
@@ -78,7 +104,7 @@ const SignIn = () => {
               <div className={`flex md:flex-row flex-col`}>
               <div className={`${SignCss.inputBox}`}>
                 <input type="text" value={contact} onChange={handleContactChange} required={true} />
-                <i><RiMailLine /></i>
+                <i><RiPhoneLine /></i>
                 <span>Contact</span>
               </div>
 
@@ -89,27 +115,29 @@ const SignIn = () => {
               </div>
               </div>
 
+              
+
               <div className={`flex md:flex-row flex-col`}>
+
+              <div className={`${SignCss.inputBox}`}>
+                <input type="email" value={email} onChange={handleEmailChange} required={true} />
+                <i><RiMailLine /></i>
+                <span>Email</span>
+              </div>
+
+
               <div className={`${SignCss.inputBox}`}>
                 <select value={gender} onChange={handleGenderChange}>
                   <option value="" className='text-[#7F99A1] '>Select Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
                 </select>
                 <i><RiUser5Line /></i>
                 {/* <span>Gender</span> */}
               </div>
 
-              <div className={`${SignCss.inputBox}`}>
-                <select value={accountType} onChange={handleAccountTypeChange}>
-                  <option value="">Select Account Type</option>
-                  <option value="student">Student</option>
-                  <option value="teacher">Teacher</option>
-                </select>
-                <i><RiFile2Line /></i>
-                {/* <span>Account Type</span> */}
-              </div>
+              
               </div>
 
               <div className={`flex md:flex-row flex-col`}>
@@ -130,7 +158,19 @@ const SignIn = () => {
                 <i><RiLock2Fill /></i>
                 <span>Confirm Password</span>
               </div>
+              
                   </div>
+
+
+                  <div className={`${SignCss.inputBox}`}>
+                <select value={accountType} onChange={handleAccountTypeChange}>
+                  <option value="">Select Account Type</option>
+                  <option value="Student">Student</option>
+                  <option value="Teacher">Teacher</option>
+                </select>
+                <i><RiFile2Line /></i>
+                {/* <span>Account Type</span> */}
+              </div>
                
               <div className={`${SignCss.inputBox} m-auto`}>
                 <input type="submit" value="Create Account" />

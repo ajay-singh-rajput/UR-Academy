@@ -6,10 +6,29 @@ import LogIn from './components/users/forms/LogIn'
 import ProfileView from './components/users/profile/ProfileView'
 import Home from './components/Home'
 import axios from './config/axios'
+import { useAppDispatch, useAppSelector } from './components/store/store'
+import { asyncFetchUser } from './components/store/actions/userActions'
 // import LocomotiveScroll from 'locomotive-scroll';
 
 const App = () => {
   // const locomotiveScroll = new LocomotiveScroll();
+
+  const {isAuth, user} = useAppSelector(state=>state.user)
+
+  const dispatch = useAppDispatch()
+
+  const fetchUserData = ()=>{
+    dispatch(asyncFetchUser())
+  }
+
+  useEffect(() => {
+    fetchUserData()
+  
+    return () => {
+      
+    }
+  }, [isAuth])
+  
 
   const testApi = async()=>{
     try {

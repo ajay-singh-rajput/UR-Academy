@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SignCss from './Sign.module.css';
 import { RiLock2Fill, RiMailLine } from '@remixicon/react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../store/store';
+import { asyncLogInUser } from '../../store/actions/userActions';
 
 const LogIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate()
+  const {isAuth} = useAppSelector(state=>state.user)
+
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -17,8 +23,17 @@ const LogIn = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Add your login logic here
+    dispatch(asyncLogInUser({email:email, password:password}));
   };
+
+  useEffect(() => {
+    isAuth && navigate('/Profile')
+  
+    return () => {
+      
+    }
+  }, [isAuth])
+  
 
   return (
     <>

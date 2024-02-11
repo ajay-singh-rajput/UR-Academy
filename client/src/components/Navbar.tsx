@@ -3,6 +3,8 @@ import navCss from '../modulCss/Nav.module.css'
 import { Link, NavLink } from 'react-router-dom'
 import { AnimatePresence, motion, useAnimation } from 'framer-motion'
 import { RiSearch2Line, RiUser2Line } from "@remixicon/react";
+import { useAppDispatch, useAppSelector } from './store/store';
+import { asyncLogOutUser } from './store/actions/userActions';
 
 
 const Navbar = () => {
@@ -11,6 +13,8 @@ const Navbar = () => {
   const controls = useAnimation();
   const [searchValue, setSearchValue] = useState('');
 const [isSearchOpen, setIsSearchOpen] = useState(false);
+const {isAuth, user} = useAppSelector(state=>state.user);
+const dispatch = useAppDispatch()
 
   const toggleMenu = async () => {
     setIsMenuOpen(!isMenuOpen);
@@ -45,6 +49,15 @@ const [isSearchOpen, setIsSearchOpen] = useState(false);
     };
   }, [isSearchOpen]);
 
+  useEffect(() => {
+    console.log('auth change', isAuth)
+  
+    return () => {
+      
+    }
+  }, [isAuth])
+  
+
   
   return (
     <div className={`fixed top-0 left-0 z-50 ${isMenuOpen?'h-screen':'h-fit'}`}>
@@ -78,9 +91,10 @@ const [isSearchOpen, setIsSearchOpen] = useState(false);
       <div className='w-screen relative flex justify-between px-3 items-center h-14'>
         <span className={`${navCss.logo}`}>UR-Academy </span>
         <span className='flex justify-center relative h-[10vh] items-center gap-2'>
-          <span className='hover:text-cyan-300 cursor-pointer md:block hidden'>Profile</span> <RiUser2Line size={36} className='md:hidden' />
-          <NavLink className={`bg-slate-800 p-2 px-5 md:block hidden rounded-md ${navCss.shadow} ${(e: any) => { return e.isActive ? `text-cyan-300` : `` }}`} to='/login'>Log-In</NavLink>
-          <NavLink className={`bg-slate-600 p-2 px-5 md:block hidden rounded-md ${navCss.shadow}`} to='/register'>Register</NavLink>
+          { isAuth && <> <span className='hover:text-cyan-300 cursor-pointer md:block hidden'>Profile</span> <RiUser2Line size={36} className='md:hidden' /> 
+          <span onClick={()=>{dispatch(asyncLogOutUser())}} className={`text-xs text-red-400 border-2 p-2 rounded-full border-slate-500 bg-slate-800 cursor-pointer hover:bg-slate-500 hover:border-slate-800 `}>Log-Out</span></>}
+          { !isAuth && <><NavLink className={`bg-slate-800 p-2 px-5 md:block hidden rounded-md ${navCss.shadow} ${(e: any) => { return e.isActive ? `text-cyan-300` : `` }}`} to='/login'>Log-In</NavLink>
+          <NavLink className={`bg-slate-600 p-2 px-5 md:block hidden rounded-md ${navCss.shadow}`} to='/register'>Register</NavLink></> }
           <button className={`${navCss.menu} ${isMenuOpen ? navCss.opened : ``}`} onClick={toggleMenu} aria-label="Main Menu">
             <svg width="50" height="50" viewBox="0 0 100 100" aria-expanded={isMenuOpen}>
               <path className={`${navCss.line} ${navCss.line1} hover:stroke-cyan-300`} d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />

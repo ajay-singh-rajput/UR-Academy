@@ -1,10 +1,13 @@
 import express, { Router } from 'express';
-import { homePage, loginUser, registerUser, userAvatar, userForgetLink, userResetPassword, userSendMail, userSignOut, userUpdate, verifyUserLink, verifyUserOTP } from '../controllers/loginController';
+import { fetchUserDetails, homePage, loginUser, registerUser, userAvatar, userForgetLink, userResetPassword, userSendMail, userSignOut, userUpdate, verifyUserLink, verifyUserOTP } from '../controllers/loginController';
+import { isAuthenticated } from '../middlewares/auth';
 const router:Router = express.Router();
 
 
 // * GET /
 router.get('/',homePage);
+
+router.post('/fetchUserDetails',isAuthenticated, fetchUserDetails)
 
 // * POST /register
 router.post('/register', registerUser);
@@ -16,10 +19,10 @@ router.get('/user/verify-link/:id/:code', verifyUserLink);
 router.get('/user/verify-otp/:id/', verifyUserOTP);
 
 // * POST /login
-router.post('/register', loginUser);
+router.post('/login', loginUser);
 
 // * GET /logout
-router.get('/register', userSignOut);
+router.get('/logout', isAuthenticated,userSignOut);
 
 // * POST /send-link
 router.post('/send-link', userSendMail);
@@ -28,13 +31,13 @@ router.post('/send-link', userSendMail);
 router.get('/user/forgot-link/:id/:code', userForgetLink);
 
 // * POST /reset-password
-router.post('/reset-password', userResetPassword);
+router.post('/reset-password', isAuthenticated, userResetPassword);
 
 // * POST /update-profile/:id
-router.post('/update-profile/:id', userUpdate);
+router.post('/update-profile/:id', isAuthenticated, userUpdate);
 
 // * POST /avatar-upload/:id
-router.post('/avatar-upload/:id', userAvatar);
+router.post('/avatar-upload/:id', isAuthenticated, userAvatar);
 
 
 

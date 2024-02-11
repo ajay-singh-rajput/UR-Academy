@@ -1,8 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { PayloadAction, createSlice } from "@reduxjs/toolkit"
+
+
 
 
 export interface CounterState {
-    user:object | null,
+    user:any,
     isAuth:Boolean
 }
 
@@ -15,7 +17,7 @@ export const userSlice = createSlice({
     name:'user',
     initialState,
     reducers:{
-        authUser:(state, action)=>{
+        authUser:(state, action:PayloadAction<object>)=>{
             state.user = action.payload;
             state.isAuth = true;
         },

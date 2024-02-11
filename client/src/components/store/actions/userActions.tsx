@@ -1,40 +1,65 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { Dispatch } from '@reduxjs/toolkit';
 import axios from '../../../config/axios';
-import { authUser } from '../slices/userSlice';
+import { authUser, logOutUser } from '../slices/userSlice';
+import { RootState } from '../store';
 
-
-export const fetchCurrentUser = createAsyncThunk('user/fetchCurrentUser',async(_, {dispatch})=>{
+export const asyncFetchUser = () => async(dispatch: Dispatch, getState:()=> RootState)=>{
     try {
-        const {data} = await axios.post('/userDetails');
+        const {data} = await axios.post('/fetchUserDetails');
+        console.log('user data', data)
         dispatch(authUser(data.user));
-    } catch (error) {
-        console.log(error)
+    } catch (error:any) {
+        if(error.response){
+            console.log(error?.response.data.message)
+        } else{
+            console.log('unable to connect with server');
+            
+        }
+        
     }
-});
+}
 
-export const signUpUser = createAsyncThunk('user/signUpUser',async(user:object,{dispatch})=>{
+export const asyncSignUpUser = (user:object) => async(dispatch:any, getState:()=>RootState) =>{
     try {
-        await axios.post('/user/sign-up', user);
-        await dispatch(fetchCurrentUser());
-    } catch (error) {
-        console.log(error)
+        // console.log('user', user)
+        await axios.post('/register', user);
+        dispatch(asyncFetchUser())
+    } catch (error:any) {
+        if(error.response){
+            console.log(error?.response.data.message)
+        } else{
+            console.log('unable to connect with server');
+            
+        }
     }
-});
+}
 
-export const logInUser = createAsyncThunk('user/logInUser',async(user:object,{dispatch})=>{
+export const asyncLogInUser = (user:object) => async(dispatch:any, getState:()=>RootState) =>{
     try {
-        await axios.post('/user/log-in', user);
-        await dispatch(fetchCurrentUser());
-    } catch (error) {
-        console.log(error)
+        await axios.post('/login', user);
+        dispatch(asyncFetchUser())
+    } catch (error:any) {
+        
+        if(error.response){
+            console.log(error?.response.data.message)
+        } else{
+            console.log('unable to connect with server');
+            
+        }
     }
-});
+}
 
-export const logOutUser = createAsyncThunk('user/logOutUser',async(_,{dispatch})=>{
+export const asyncLogOutUser = () => async(dispatch:any, getState:()=>RootState)=>{
     try {
-        await axios.get('/user/log-out');
-        dispatch(logOutUser());
-    } catch (error) {
-        console.log(error)
+        await axios.get('/logout');
+        dispatch(logOutUser())
+    } catch (error:any) {
+        
+        if(error.response){
+            console.log(error?.response.data.message)
+        } else{
+            console.log('unable to connect with server');
+            
+        }
     }
-});
+}

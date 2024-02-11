@@ -14,13 +14,8 @@ interface JwtPayload{
 }
 
 export const isAuthenticated = catchAsyncError(async(req:IGetUserAuthInfoRequest, res:Response, next:NextFunction)=>{
-    const headerData:string = req.headers.authorization || ''
-    const checkData:{id:string;token:string}={
-        id:headerData.split('')[0],
-        token:headerData.split('')[1],
-    }
-    const {token} = checkData;
-    if(!token || (token === 'undefine')){
+    const {token} = req.cookies
+    if(!token){
         return next(new ErrorHandler('Please login to access the resource',401))
     }
     const {id} = Jwt.verify(token, process.env.JWT_SECRET || '') as JwtPayload;

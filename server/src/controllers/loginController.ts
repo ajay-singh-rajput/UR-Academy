@@ -14,6 +14,13 @@ export const homePage = catchAsyncError(async (req:Request, res:Response, next:N
     res.json({message:'this is home page'})
 })
 
+export const fetchUserDetails = catchAsyncError(async (req:IGetUserAuthInfoRequest, res:Response, next:NextFunction)=>{
+    console.log(req.id)
+    const user = await UserModel.findById(req.id).exec()
+    !user ? next (new ErrorHandler('user not found', 404)):''
+    res.json({message:'user details get successfully', user:user})
+})
+
 export const registerUser = catchAsyncError(async (req:Request, res:Response, next:NextFunction)=>{
     const user =  new UserModel(req.body)
     const vCode = `${Math.floor(Math.random()*999) + 1000}`;
