@@ -7,3 +7,8 @@
 .navContainer{
   z-index: 99;
 }
+
+NavLink:active{
+  filter: invert(1);
+  scale: 0.9;
+}

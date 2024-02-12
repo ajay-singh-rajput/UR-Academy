@@ -19,10 +19,10 @@ export const asyncFetchUser = () => async(dispatch: Dispatch, getState:()=> Root
     }
 }
 
-export const asyncSignUpUser = (user:object) => async(dispatch:any, getState:()=>RootState) =>{
+export const asyncSignUpUser = (data:{otp:string,email:string}) => async(dispatch:any, getState:()=>RootState) =>{
     try {
-        // console.log('user', user)
-        await axios.post('/register', user);
+        // console.log('otp', otp)
+        await axios.post(`/user/verify-otp/${data.email}`, {otp:data.otp});
         dispatch(asyncFetchUser())
     } catch (error:any) {
         if(error.response){

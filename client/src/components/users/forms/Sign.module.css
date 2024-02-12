@@ -127,3 +127,10 @@
   font-weight: 500;
   color: #fff;
 }
+
+.otpDiv{
+  background: rgba(30,41,59,0.2);
+-webkit-backdrop-filter: blur(10px);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(30,41,59,0.1);
+}

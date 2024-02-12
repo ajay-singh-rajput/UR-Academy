@@ -15,8 +15,8 @@ router.post('/register', registerUser);
 // * get /user/verify-link/:id/:code
 router.get('/user/verify-link/:id/:code', verifyUserLink);
 
-// * get /user/verify-otp/:id
-router.get('/user/verify-otp/:id/', verifyUserOTP);
+// * get /user/verify-otp/:email
+router.post('/user/verify-otp/:email', verifyUserOTP);
 
 // * POST /login
 router.post('/login', loginUser);

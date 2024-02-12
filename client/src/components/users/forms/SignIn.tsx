@@ -4,6 +4,8 @@ import { RiFile2Line, RiLock2Fill, RiMailLine, RiPhoneLine, RiUser5Line, RiUserL
 import { Link, useNavigate } from 'react-router-dom';
 import { asyncSignUpUser } from '../../store/actions/userActions';
 import { useAppDispatch, useAppSelector } from '../../store/store';
+import axios from '../../../config/axios'
+import {toast} from 'react-toastify'
 
 const SignIn = () => {
   const dispatch = useAppDispatch()
@@ -15,7 +17,9 @@ const SignIn = () => {
   const [contact, setContact] = useState('');
   const [gender, setGender] = useState('');
   const [city, setCity] = useState('');
+  const [otp, setOtp] = useState('')
   const [accountType, setAccountType] = useState('');
+  const [otpDivActive, setOtpDivActive] = useState(false)
 
   const {isAuth} = useAppSelector(state=>state.user);
   const navigate = useNavigate()
@@ -66,13 +70,32 @@ const SignIn = () => {
   const handleAccountTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setAccountType(event.target.value);
   };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    // console.log(formData)
-    dispatch(asyncSignUpUser(formData));
-   
+  const handleOtpChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+     
+    setOtp(event.target.value);
   };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // dispatch(asyncSignUpUser(formData));
+    try {
+      const {data} = await axios.post('/register', formData)
+      toast.info(data.message)
+      setOtpDivActive(true);
+    } catch (error:any) {
+      if(error.response){
+        toast.error(error.response.data.message)
+    } else{
+        toast.error('Unable to connect with server')  
+    }
+    }
+  };
+
+  const handleOtpSubmit = async(event:React.FormEvent<HTMLFormElement>)=>{
+    event.preventDefault();
+    dispatch(asyncSignUpUser({otp:otp, email:email}));
+  }
+
   useEffect(() => {
     isAuth && navigate('/Profile')
   
@@ -181,6 +204,26 @@ const SignIn = () => {
             </p>
           </div>
         </div>
+       { otpDivActive && <div className={`fixed top-0 left-0 w-full h-full ${SignCss.otpDiv} flex items-center justify-center`}>
+        <div className={`${SignCss.body} w-fit h-fit `}>
+        <div className={`${SignCss.container}`}>
+          <div className={`${SignCss.form} ${SignCss.signup}`}>
+            <h2>OTP</h2>
+            <form onSubmit={handleOtpSubmit} >
+              <div className={`${SignCss.inputBox}`}>
+                <input type="password" value={otp} onChange={handleOtpChange} required={true} />
+                <i><RiMailLine /></i>
+                <span>OTP</span>
+              </div>
+              <div className={`${SignCss.inputBox} m-auto mt-3`}>
+                <input type="submit" value="Submit" />
+              </div>
+              
+            </form>
+          </div>
+        </div>
+      </div>
+        </div>}
       </div>
     </>
   );

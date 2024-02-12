@@ -8,6 +8,7 @@ import Home from './components/Home'
 import axios from './config/axios'
 import { useAppDispatch, useAppSelector } from './components/store/store'
 import { asyncFetchUser } from './components/store/actions/userActions'
+
 // import LocomotiveScroll from 'locomotive-scroll';
 
 const App = () => {
