@@ -6,6 +6,7 @@ import { asyncSignUpUser } from '../../store/actions/userActions';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import axios from '../../../config/axios'
 import {toast} from 'react-toastify'
+import Loading from '../../otherComponents/Loading';
 
 const SignIn = () => {
   const dispatch = useAppDispatch()
@@ -107,6 +108,7 @@ const SignIn = () => {
   return (
     <>
       <div className={`${SignCss.body}`}>
+         
         <div className={`${SignCss.container}`}>
           <div className={`${SignCss.form} ${SignCss.signup}`}>
             <h2>Sign Up</h2>

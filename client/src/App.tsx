@@ -8,13 +8,15 @@ import Home from './components/Home'
 import axios from './config/axios'
 import { useAppDispatch, useAppSelector } from './components/store/store'
 import { asyncFetchUser } from './components/store/actions/userActions'
+import Loading from './components/otherComponents/Loading'
 
 // import LocomotiveScroll from 'locomotive-scroll';
 
 const App = () => {
   // const locomotiveScroll = new LocomotiveScroll();
 
-  const {isAuth, user} = useAppSelector(state=>state.user)
+  const {isAuth, user} = useAppSelector(state=>state.user);
+  const {isLoading} = useAppSelector(state=> state.loading)
 
   const dispatch = useAppDispatch()
 
@@ -65,6 +67,7 @@ useEffect(() => {
       <Route path='/Profile' element={<ProfileView/>}/>
     </Routes>
     </div>
+    {isLoading ? <Loading />:''}
 
 
     </>

@@ -25,7 +25,7 @@ const dispatch = useAppDispatch()
       // Trigger the animation for link elements after the drawer is fully opened
       await controls.start({ opacity: 1, transition: { delay: 0.3 } });
     } else {
-      await controls.start({ x: '100%', transition:{delay:0.2} });
+      // await controls.start({ x: '100%', transition:{delay:0.2} });
       // await controls.start({ opacity: 0, x: '100%', transition:{delay:0} });
       setIsMenuOpen(!isMenuOpen);
     }

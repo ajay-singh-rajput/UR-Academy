@@ -1,5 +1,15 @@
-body {
-    font-family: sans-serif;
+
+
+  .loadingDIv{
+    /* position: absolute; */
+    top: 0;
+    left: 0;
+    z-index: 58;
+    background: rgba(30,41,59,0.35);
+-webkit-backdrop-filter: blur(16px);
+backdrop-filter: blur(16px);
+border: 1px solid rgba(30,41,59,0.175);
+font-family: sans-serif;
   
     display: flex;
   
@@ -9,9 +19,10 @@ body {
   
     justify-content: center;
   
-    min-height: 100vh;
+    min-height: 100%;
+    width: 100%;
   
-    background: #010001;
+    /* background: #010001; */
   
     color: white;
   
@@ -19,7 +30,7 @@ body {
   }
   
   .pencil {
-    position: relative;
+    /* position: relative; */
   
     width: 300px;
   
@@ -55,7 +66,7 @@ body {
   }
   
   .pencilBallPoint {
-    position: absolute;
+    /* position: absolute; */
   
     left: 0;
   
@@ -73,7 +84,7 @@ body {
   }
   
   .pencilCap {
-    position: absolute;
+    /* position: absolute; */
   
     left: 0px;
   
@@ -91,7 +102,7 @@ body {
   }
   
   .pencilCapBase {
-    position: absolute;
+    /* position: absolute; */
   
     left: 12%;
   
@@ -105,7 +116,7 @@ body {
   }
   
   .pencilMiddle {
-    position: absolute;
+    /* position: absolute; */
   
     left: calc(12% + 20px);
   
@@ -119,7 +130,7 @@ body {
   }
   
   .pencilEraser {
-    position: absolute;
+    /* position: absolute; */
   
     left: calc(12% + 70% + 20px);
   
@@ -137,7 +148,7 @@ body {
   }
   
   .line {
-    position: relative;
+    /* position: relative; */
   
     top: 80px;
   
@@ -179,7 +190,7 @@ body {
   }
   
   h2 {
-    position: relative;
+    /* position: relative; */
   
     top: 150px;
   
