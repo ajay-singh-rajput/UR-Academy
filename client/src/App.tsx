@@ -9,6 +9,8 @@ import axios from './config/axios'
 import { useAppDispatch, useAppSelector } from './components/store/store'
 import { asyncFetchUser } from './components/store/actions/userActions'
 import Loading from './components/otherComponents/Loading'
+import { toast } from 'react-toastify'
+import { clearError } from './components/store/slices/erroHandlerSlice'
 
 // import LocomotiveScroll from 'locomotive-scroll';
 
@@ -16,9 +18,31 @@ const App = () => {
   // const locomotiveScroll = new LocomotiveScroll();
 
   const {isAuth, user} = useAppSelector(state=>state.user);
-  const {isLoading} = useAppSelector(state=> state.loading)
-
+  const {isLoading} = useAppSelector(state=> state.loading);
+  const {isSuccess, message} = useAppSelector(state => state.errorSlice);
   const dispatch = useAppDispatch()
+
+  const showMessage = ()=>{
+    // toast.success('hello frnd')
+    if(message){
+      if(isSuccess){
+        toast.success(message)
+      } else {
+        toast.error(message)
+      }
+      dispatch(clearError())
+    }
+  }
+
+  useEffect(() => {
+    showMessage()
+  
+    return () => {
+      
+    }
+  }, [message])
+  
+
 
   const fetchUserData = ()=>{
     dispatch(asyncFetchUser())
