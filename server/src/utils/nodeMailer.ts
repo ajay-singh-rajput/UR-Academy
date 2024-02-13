@@ -18,7 +18,7 @@ export const sendMail = (req:Request, res:Response, next:NextFunction, url:strin
         from:'Indian Privet Limited',
         to:req.body.email,
         subject:"Password reset link",
-        html:`<h1>Your OTP:- <strong>${vCode}</strong> <br/> or ${msg}</h1><br/> <h1><a>${url}</a></h1>`
+        html:`<h1>Your OTP:- <strong>${vCode}</strong> <br/> or ${msg}</h1><br/> <h1><a href='${url}'>${url}</a></h1>`
     };
     transport.sendMail(mailOption, (err, info)=>{
         if(err){
@@ -26,7 +26,7 @@ export const sendMail = (req:Request, res:Response, next:NextFunction, url:strin
             console.log(err);
             return next(new ErrorHandler(errorMessage, 500))
         }
-        console.log(info);
+        // console.log(info);
         return res.status(200).json({
             message:"mail send successfully",
             url,

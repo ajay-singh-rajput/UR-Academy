@@ -27,6 +27,7 @@ const App = () => {
     if(message){
       if(isSuccess){
         toast.success(message)
+        
       } else {
         toast.error(message)
       }
@@ -47,12 +48,9 @@ const App = () => {
   const fetchUserData = ()=>{
     dispatch(asyncFetchUser())
   }
-
   useEffect(() => {
     fetchUserData()
-  
     return () => {
-      
     }
   }, [isAuth])
   
@@ -78,7 +76,7 @@ useEffect(() => {
 
   return (
     <>
-    <div className='pt-[12vh] border-t-2 bg-[#223243]  min-h-screen'>
+    <div className='pt-[12vh]  bg-[#223243]  min-h-screen'>
       <div className=''>
 
     <Navbar />

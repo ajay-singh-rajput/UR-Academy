@@ -35,7 +35,7 @@ export const createChapter = catchAsyncError(async(req:IGetUserAuthInfoRequest, 
     console.log("req files", req.file);
 
     if (!req?.file) {
-      res.status(403).json({ status: false, error: "please upload a file" });
+      res.status(400).json({ status: false, error: "please upload a file" });
       return;
     }
     console.log("req?.file", req?.file);
@@ -127,7 +127,7 @@ export const confirmOrder = catchAsyncError(async(req:IGetUserAuthInfoRequest, r
   let secret = process.env.RAZOR_PAY_SECRET || '';
 
   const result = validatePaymentVerification({"order_id":razorpayOrderId, "payment_id":razorpayPaymentId},signature, secret);
-  if(!result)return  next(new ErrorHandler('payment failed by your bank', 500));
+  if(!result)return  next(new ErrorHandler('payment failed by your bank', 402));
   user?.subscribedCourses.push(course?._id);
   course?.subscriber.push(user?._id);
   await user?.save();
