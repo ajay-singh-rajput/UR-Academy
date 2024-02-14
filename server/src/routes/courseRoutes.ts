@@ -1,6 +1,6 @@
 import express, { Router } from 'express';
 import { isAuthenticated } from '../middlewares/auth';
-import {  confirmOrder, createChapter, createCourse, deleteChapter, deleteCourse, editChapter, editCourse, generateOrderId } from '../controllers/courseController';
+import {  confirmOrder, createChapter, createCourse, deleteChapter, deleteCourse, editChapter, editCourse, generateOrderId, uploadChapter } from '../controllers/courseController';
 import upload from '../middlewares/fileUpload';
 const router:Router = express.Router();
 
@@ -13,8 +13,8 @@ router.post('/edit-course/:courseID', isAuthenticated, editCourse);
 //# GET /course/delete-course/:courseID
 router.get('/delete-course/:courseID', isAuthenticated, deleteCourse);
 
-//# POST /course/create-chapter/:id
-router.post('/create-chapter/:id', isAuthenticated, createCourse);
+//# POST /course/create-chapter/:courseID/:chapterID
+router.post('/create-chapter/:courseID/:chapterID', isAuthenticated, createChapter);
 
 //# POST /course/edit-chapter/:courseID/:chapterID
 router.post('/edit-chapter/:courseID/:chapterID', isAuthenticated, editChapter);
@@ -23,7 +23,7 @@ router.post('/edit-chapter/:courseID/:chapterID', isAuthenticated, editChapter);
 router.get('/delete-chapter/:courseID/:chapterID', isAuthenticated, deleteChapter);
 
 //# POST /course/upload/file
-router.post('/upload/file', isAuthenticated, upload.single('file'), createChapter);
+router.post('/upload/file', isAuthenticated, upload.single('file'), uploadChapter);
 
 //# POST /course/buy-course/generate-orderID/:courseID
 router.post('/buy-course/generate-orderID/:courseID', generateOrderId);

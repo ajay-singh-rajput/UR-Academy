@@ -5,7 +5,7 @@ interface Chapter {
     id: string;
     title: string;
     description: string;
-    sourceLink: { name: string; url: String }[];
+    sourceLink: { name: string; url: String }[] | null;
     mediaLink?: String | '';
 }
 
