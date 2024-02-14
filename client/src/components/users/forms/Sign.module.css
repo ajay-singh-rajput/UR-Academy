@@ -8,13 +8,19 @@
   width: 100%;
   /* overflow: hidden; */
   background: #223243;
+  /* background: yellow; */
+  padding-top: 4vh;
   font-family: "Poppins", sans-serif;
 }
 
 .container {
-  padding: 40px;
+  /* min-width: 400px; */
+  /* max-width: 800px; */
+  /* width: 100%; */
+  /* padding: 40px; */
   border-radius: 20px;
   border: 8px solid #223243;
+  /* background: #00dfc4; */
   box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
     5px 5px 15px rgba(0, 0, 0, 0.35),
     inset -5px -5px 15px rgba(255, 255, 255, 0.1),
@@ -22,6 +28,10 @@
 }
 
 .container .form {
+  /* min-width: 400px;
+  max-width: 800px; */
+  width: 100%;
+  /* background: red; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,8 +55,13 @@
 }
 
 .container .form .inputBox {
-  position: relative;
-  width: 300px;
+  position: relative; 
+  /* width: 300px; */
+  /* min-width: 400px; */
+  max-width: 750px;
+  width: 100%;
+  /* background: blue; */
+  margin: 10px 0;
 }
 
 .container .form .inputBox input, .container .form .inputBox select {

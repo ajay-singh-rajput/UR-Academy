@@ -11,6 +11,8 @@ import { asyncFetchUser } from './components/store/actions/userActions'
 import Loading from './components/otherComponents/Loading'
 import { toast } from 'react-toastify'
 import { clearError } from './components/store/slices/erroHandlerSlice'
+import Create from './components/users/manageCourse/Create'
+import { Link } from 'react-router-dom'
 
 // import LocomotiveScroll from 'locomotive-scroll';
 
@@ -87,11 +89,16 @@ useEffect(() => {
       <Route path='/register' element={<SignIn/>}/>
       <Route path='/login' element={<LogIn/>}/>
       <Route path='/Profile' element={<ProfileView/>}/>
+      <Route path='/Create-Course' element={<Create/>}/>
     </Routes>
     </div>
     {isLoading ? <Loading />:''}
 
-
+<nav className='bg-red-400 flex gap-2 absolute bottom-0 left-0'>
+  {['register', 'login', 'Profile', 'Create-Course'].map((elem, ind)=>{
+    return<Link key={ind} to={`/${elem}`}>{elem}</Link>
+  })}
+</nav>
     </>
   )
 }

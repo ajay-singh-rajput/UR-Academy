@@ -110,7 +110,7 @@ const SignIn = () => {
       <div className={`${SignCss.body}`}>
          
         <div className={`${SignCss.container}`}>
-          <div className={`${SignCss.form} ${SignCss.signup}`}>
+          <div className={`${SignCss.form} ${SignCss.signup} md:min-w-[45vw] p-4 md:p-10`}>
             <h2>Sign Up</h2>
             <form onSubmit={handleSubmit} className={`flex flex-col gap-2`}>
               <div className={`flex md:flex-row flex-col`}>

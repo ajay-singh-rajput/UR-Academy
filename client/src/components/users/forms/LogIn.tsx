@@ -62,10 +62,10 @@ const LogIn = () => {
     <>
       <div className={`${SignCss.body}`}>
         <div className={`${SignCss.container}`}>
-          <div className={`${SignCss.form} ${SignCss.signup}`}>
+          <div className={`${SignCss.form} ${SignCss.signup} md:min-w-[45vw] p-4 md:p-10`}>
             <h2>Log In</h2>
             <form onSubmit={handleSubmit}>
-              <div className={`${SignCss.inputBox}`}>
+              <div className={`${SignCss.inputBox} md:min-w-[40vw] min-w-[85vw]`}>
                 <input type="text" value={email} onChange={handleEmailChange} required={true} />
                 <i><RiMailLine /></i>
                 <span>email address</span>
