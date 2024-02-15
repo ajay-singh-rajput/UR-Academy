@@ -13,6 +13,7 @@ import { toast } from 'react-toastify'
 import { clearError } from './components/store/slices/erroHandlerSlice'
 import Create from './components/users/manageCourse/Create'
 import { Link } from 'react-router-dom'
+import CreateChapter from './components/users/manageCourse/CreateChapter'
 
 // import LocomotiveScroll from 'locomotive-scroll';
 
@@ -90,12 +91,13 @@ useEffect(() => {
       <Route path='/login' element={<LogIn/>}/>
       <Route path='/Profile' element={<ProfileView/>}/>
       <Route path='/Create-Course' element={<Create/>}/>
+      <Route path='/create-chapter/:courseID' element={<CreateChapter/>}/>
     </Routes>
     </div>
     {isLoading ? <Loading />:''}
 
 <nav className='bg-red-400 flex gap-2 absolute bottom-0 left-0'>
-  {['register', 'login', 'Profile', 'Create-Course'].map((elem, ind)=>{
+  {['register', 'login', 'Profile', 'Create-Course','create-chapter/123456' ].map((elem, ind)=>{
     return<Link key={ind} to={`/${elem}`}>{elem}</Link>
   })}
 </nav>
