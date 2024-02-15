@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
-import styles from '../../../modulCss/Upload.module.css'; // Import the CSS file
+import styles from '../../../modulCss/Upload.module.css'; 
+import SignCss from '../forms/Sign.module.css'
 import axios from '../../../config/axios'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const CreateChapter = () => {
     const [file, setFile] = useState<File | null>(null);
     const {courseID} = useParams();
     const [fileData, setFileData] = useState<any>();
-    const [chapterID, setChapterID] = useState<String>()
+    const [chapterID, setChapterID] = useState<String>();
+    const [chapterTitle, setChapterTitle] = useState('');
+    const [description, setDescription] = useState('')
+    const [sourceLink, setSourceLink] = useState('')
+    const navigate = useNavigate()
+
+
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       if (e.target.files && e.target.files.length > 0) {
         setFile(e.target.files[0]);
@@ -33,8 +40,35 @@ const CreateChapter = () => {
         // }, 5000);
       }
     };
+
+    const chapterTitleChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
+        setChapterTitle(e.target.value)
+    }
+    const descriptionChange = (e:React.ChangeEvent<HTMLTextAreaElement>)=>{
+        setDescription(e.target.value)
+    }
+    const sourceLinkChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
+        setSourceLink(e.target.value)
+    }
+
+    const creatingCourseHandler = async()=>{
+        const formData = {
+            title:chapterTitle,
+            description:description,
+            sourceLink:sourceLink,
+            mediaLink:fileData.url
+        }
+        try {
+            const {data} = await axios.post(`course/create-chapter/${courseID}/${chapterID}`,formData)
+            navigate('/Profile')
+        } catch (error) {
+            
+        }
+
+    }
   
     return (
+        <div className=''>
       <div className={styles.wrapper}>
         <h1>Upload Your File</h1>
         <div className={`${styles.uploadWrapper}`}>
@@ -67,6 +101,38 @@ const CreateChapter = () => {
           <div className={styles.uploadProgress}></div>
         </div>
         </div>
+      </div>
+      <div>
+      <div className={`${SignCss.body}`}>
+        <div className={`${SignCss.container}`}>
+          <div className={`${SignCss.form} ${SignCss.signup} md:min-w-[45vw] p-4 md:p-10`}>
+            <h2>Chapter Details</h2>
+            <form onSubmit={creatingCourseHandler}>
+              <div className={`${SignCss.inputBox} md:min-w-[40vw] min-w-[85vw]`}>
+                <input type="text" value={chapterTitle} onChange={chapterTitleChange} required={true} />
+                <i></i>
+                <span>Title Of Chapter</span>
+              </div>
+              <div className={`${SignCss.inputBox}`}>
+                {/* <input type="text" value={description} onChange={descriptionChange} required={true} /> */}
+                <textarea  className={`pl-7 p-2`} onChange={descriptionChange}>{description}</textarea>
+                <i></i>
+                <span>Description</span>
+              </div>
+              <div className={`${SignCss.inputBox}`}>
+                <input type="url" value={sourceLink} onChange={sourceLinkChange} required={true} />
+                <i></i>
+                <span>Source Link</span>
+              </div>
+              <div className={`${SignCss.inputBox}`}>
+                <input type="submit" value="Create Chapter" />
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+      </div>
       </div>
     );
 }

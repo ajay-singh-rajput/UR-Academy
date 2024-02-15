@@ -64,7 +64,7 @@
   margin: 10px 0;
 }
 
-.container .form .inputBox input, .container .form .inputBox select {
+.container .form .inputBox input, .container .form .inputBox select, textarea {
   padding: 12px 10px 12px 48px;
   border: none;
   width: 100%;
@@ -93,7 +93,9 @@
 }
 
 .container .form .inputBox input:valid ~ span,
-.container .form .inputBox input:focus ~ span {
+.container .form .inputBox input:focus ~ span, 
+.container .form .inputBox textarea:focus ~ span,
+.container .form .inputBox textarea:valid ~ span{
   color: #00dfc4;
   border: 1px solid #00dfc4;
   background: #223243;
@@ -105,7 +107,9 @@
 }
 
 .container .form .inputBox input:valid,
-.container .form .inputBox input:focus {
+.container .form .inputBox input:focus,
+.container .form .inputBox textarea:valid,
+.container .form .inputBox textarea:focus {
   border: 1px solid #00dfc4;
 }
 
