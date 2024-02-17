@@ -14,6 +14,7 @@ import { clearError } from './components/store/slices/erroHandlerSlice'
 import Create from './components/users/manageCourse/Create'
 import { Link } from 'react-router-dom'
 import CreateChapter from './components/users/manageCourse/CreateChapter'
+import WatchCourse from './components/users/handleCourse/WatchCourse'
 
 // import LocomotiveScroll from 'locomotive-scroll';
 
@@ -92,15 +93,16 @@ useEffect(() => {
       <Route path='/Profile' element={<ProfileView/>}/>
       <Route path='/Create-Course' element={<Create/>}/>
       <Route path='/create-chapter/:courseID' element={<CreateChapter/>}/>
+      <Route path='/watch-chapter/:courseID' element={<WatchCourse/>}/>
     </Routes>
     </div>
     {isLoading ? <Loading />:''}
 
-<nav className='bg-red-400 flex gap-2 absolute bottom-0 left-0'>
-  {['register', 'login', 'Profile', 'Create-Course','create-chapter/123456' ].map((elem, ind)=>{
+{/* <nav className='bg-red-400 flex gap-2 absolute bottom-0 left-0'>
+  {['register', 'login', 'Profile', 'Create-Course','create-chapter/123456','watch-chapter/1234' ].map((elem, ind)=>{
     return<Link key={ind} to={`/${elem}`}>{elem}</Link>
   })}
-</nav>
+</nav> */}
     </>
   )
 }

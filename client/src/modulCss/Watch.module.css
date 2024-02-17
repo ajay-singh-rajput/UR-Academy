@@ -1,0 +1,23 @@
+.chapterDetailsContainer span{
+    display: flex;
+    gap: 5px;
+}
+
+.descriptionContainer{
+    width: 100%;
+    border: 1px solid #8080802d;
+    padding: 5px;
+    color: rgb(143, 143, 143);
+    font-size: 15px;
+    overflow: hidden;
+}
+
+.chapterListContainer{
+    border: 1px solid rgba(128, 128, 128, 0.177);
+    display: flex;
+    flex-direction: column;
+    gap: 2;
+    padding: 5px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
