@@ -85,7 +85,7 @@ const Navbar = () => {
         <div className='w-screen relative flex justify-between px-3 items-center h-14'>
           <span className={`${navCss.logo}`}><NavLink to='/'>UR-Academy</NavLink>  </span>
           <span className='flex justify-center relative h-[10vh] items-center gap-2'>
-            {isAuth && <> <span className='hover:text-cyan-300 cursor-pointer md:block hidden'>Profile</span> <RiUser2Line size={36} className='md:hidden' />
+            {isAuth && <> <span className='hover:text-cyan-300 cursor-pointer md:block hidden'><Link to='/Profile'>Profile</Link> </span> <RiUser2Line size={36} className='md:hidden' />
               <span onClick={() => { dispatch(asyncLogOutUser()) }} className={`text-xs text-red-400 border-2 p-2 rounded-full border-slate-500 bg-slate-800 cursor-pointer hover:bg-slate-500 hover:border-slate-800 `}>Log-Out</span></>}
             {!isAuth && <><NavLink className={` p-2 px-4 md:block hidden rounded-full ${navCss.shadow} ${navCss.loginBtn} ${(e: any) => { return e.isActive ? `text-cyan-300` : `` }}`} to='/login'>Log-In</NavLink>
               <NavLink className={` p-2 px-4 md:block hidden rounded-full ${navCss.shadow} ${navCss.register}`} to='/register'>Register</NavLink></>}

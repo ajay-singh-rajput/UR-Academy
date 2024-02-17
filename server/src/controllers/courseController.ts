@@ -54,7 +54,7 @@ export const uploadChapter = catchAsyncError(async (req: IGetUserAuthInfoRequest
     id: id,
     title: '',
     description: '',
-    sourceLink: null,
+    // sourceLink: null,
     mediaLink: data.url
   }
   course.chapter.push(newChapter);
@@ -76,7 +76,8 @@ export const createChapter = catchAsyncError(async (req: IGetUserAuthInfoRequest
     id: req.params.chapterID,
     title:req.body.title,
     description:req.body.description,
-    sourceLink:[req.body.sourceLink]
+    mediaLink:course.chapter[chapterIndex].mediaLink
+    // sourceLink:[req.body.sourceLink]
   }
   await course.save();
   res.json({message:'Chapter Creation Complete', course:course});
@@ -91,7 +92,7 @@ export const editChapter = catchAsyncError(async (req: IGetUserAuthInfoRequest, 
     id: req.params.chapterID,
     title: req.body.title,
     description: req.body.description,
-    sourceLink: req.body.sourceLink
+    // sourceLink: req.body.sourceLink
   }
   await course.save();
   res.json({ message: "Data updated successfully", chapter: course.chapter[chapterIndex] })

@@ -5,7 +5,7 @@ interface Chapter {
     id: string;
     title: string;
     description: string;
-    sourceLink: { name: string; url: String }[] | null;
+    // sourceLink: { name: string; url: String }[] | null;
     mediaLink?: String | '';
 }
 
@@ -39,7 +39,7 @@ const courseModel:Schema<Course> = new mongoose.Schema<Course>({
         id:String,
         title:String,
         description:String,
-        sourceLink:[{name:String,url:String}],
+        // sourceLink:[{name:String,url:String}],
         mediaLink:{type:String, default:''}
     }]
 },{

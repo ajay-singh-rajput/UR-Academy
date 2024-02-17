@@ -24,6 +24,8 @@ const CreateChapter = () => {
     const handleUpload = async() => {
       if (file) {
         // Perform the file upload logic here
+        const formData = new FormData();
+      formData.append('file', file as File);
         console.log('Uploading file:', file.name);
         try {
             // const {data} = await axios({
@@ -34,10 +36,11 @@ const CreateChapter = () => {
             //     'Content-Type': 'multipart/form-data'
             //   }
             // })
-            const {data} = await axios.post(`/course/upload/file/${courseID}`,file)
+            const {data} = await axios.post(`/course/upload/file/${courseID}`,formData)
             
             setChapterID(data.chapterID);
             setFileData(data.data);
+            console.log(data)
             
         } catch (error) {
             console.log(error)
@@ -65,14 +68,15 @@ const CreateChapter = () => {
         const formData = {
             title:chapterTitle,
             description:description,
-            sourceLink:sourceLink,
+            // sourceLink:sourceLink,
             mediaLink:fileData.url
         }
         try {
-            const {data} = await axios.post(`course/create-chapter/${courseID}/${chapterID}`,formData)
+            const {data} = await axios.post(`course/create-chapter/${courseID}/${chapterID}`,formData);
+            console.log('aa gya data',data)
             navigate('/Profile')
         } catch (error) {
-            
+            console.log('create error', error)
         }
 
     }
@@ -105,7 +109,6 @@ const CreateChapter = () => {
             <label htmlFor="file" className={`${styles.uploadButtonText} `}>
               {file ? 'Upload' : 'Choose file'}
             </label>
-
           </button>
           <div className={styles.uploadHint}>Uploading...</div>
           <div className={styles.uploadProgress}></div>
