@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Navbar from './components/Navbar'
 import { Route, Routes } from 'react-router-dom'
 import SignIn from './components/users/forms/SignIn'
@@ -15,6 +15,7 @@ import Create from './components/users/manageCourse/Create'
 import { Link } from 'react-router-dom'
 import CreateChapter from './components/users/manageCourse/CreateChapter'
 import WatchCourse from './components/users/handleCourse/WatchCourse'
+import { Courser } from './components/otherComponents/Cursor'
 
 // import LocomotiveScroll from 'locomotive-scroll';
 
@@ -25,6 +26,7 @@ const App = () => {
   const {isLoading} = useAppSelector(state=> state.loading);
   const {isSuccess, message} = useAppSelector(state => state.errorSlice);
   const dispatch = useAppDispatch()
+  // const stickyElement = useRef(null)
 
   const showMessage = ()=>{
     // toast.success('hello frnd')
@@ -98,11 +100,12 @@ useEffect(() => {
     </div>
     {isLoading ? <Loading />:''}
 
- <nav className='bg-red-400 flex gap-2 absolute bottom-0 left-0'>
+ {false &&<nav className='bg-red-400 flex gap-2 absolute bottom-0 left-0'>
   {['register', 'login', 'Profile', 'Create-Course','create-chapter/123456','watch-chapter/1234' ].map((elem, ind)=>{
     return<Link key={ind} to={`/${elem}`}>{elem}</Link>
   })}
-</nav> 
+</nav> }
+<Courser/>
     </>
   )
 }

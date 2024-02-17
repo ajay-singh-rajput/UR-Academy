@@ -12,3 +12,11 @@ NavLink:active{
   filter: invert(1);
   scale: 0.9;
 }
+
+.customCursorClass{
+  -webkit-box-shadow: inset 2.5px 32px 32px 13px #dddddd;
+-moz-box-shadow: inset 2.5px 32px 32px 13px #dddddd;
+box-shadow: inset 2.5px 32px 32px 13px #dddddd;
+background: transparent;
+background-color: transparent;
+}
