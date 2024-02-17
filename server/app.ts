@@ -13,8 +13,8 @@ import logger from 'morgan';
 app.use(logger('tiny'));
 
 //bodyParser
-app.use(express.json());
-app.use(express.urlencoded({extended:false}));
+app.use(express.json({limit:'50mb'}));
+app.use(express.urlencoded({extended:false, limit:'50mb'}));
 
 // cors  npm i --save-dev @types/cors
 import cors from 'cors'
@@ -35,15 +35,15 @@ app.use(cookieParser());
 
 // express file upload
 import fileUpload from 'express-fileupload';
-app.use(fileUpload());
 
 import { ErrorHandler } from './src/utils/ErrorHandler';
 import indexRouter from './src/routes/loginRoutes'
 import courseRouter from './src/routes/courseRoutes'
-app.use('/',indexRouter);
 app.use('/course',courseRouter);
+app.use(fileUpload());
+app.use('/',indexRouter);
 app.all('*',(req, res, next)=>{
-    next(new ErrorHandler(`Requested URL Bot Found ${req.url}`,404))
+    next(new ErrorHandler(`Requested URL Not Found ${req.url}`,404))
 })
 app.use(generatedErrors);
 

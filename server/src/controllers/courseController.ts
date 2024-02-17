@@ -31,6 +31,8 @@ export const createCourse = catchAsyncError(async (req: IGetUserAuthInfoRequest,
 
 export const uploadChapter = catchAsyncError(async (req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) => {
   const course = await CourseModel.findById(req.params.id);
+  console.log(req.params.id);
+  console.log(req.files, 'file', req.file)
   if (!course) return next(new ErrorHandler('course does not present', 404));
   console.log("req files", req.file);
 

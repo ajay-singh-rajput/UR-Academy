@@ -21,10 +21,12 @@ const Create = () => {
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPrice(event.target.value);
   }
-  const creatingCourseHandler = async() => {
+  const creatingCourseHandler = async(e:React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     try {
       const formData ={name:courseName, title:title, price:price}
       const {data} = await axios.post('/course/create-course',formData);
+      console.log('course Created', data)
       navigate(`/create-chapter/${data.course}`)
     } catch (error) {
       

@@ -22,13 +22,13 @@ router.post('/edit-chapter/:courseID/:chapterID', isAuthenticated, editChapter);
 //# GET /course/delete-chapter/:courseID/:chapterID
 router.get('/delete-chapter/:courseID/:chapterID', isAuthenticated, deleteChapter);
 
-//# POST /course/upload/file
-router.post('/upload/file', isAuthenticated, upload.single('file'), uploadChapter);
+//# POST /course/upload/file/id
+router.post('/upload/file/:id', isAuthenticated, upload.single('file'), uploadChapter);
 
 //# POST /course/buy-course/generate-orderID/:courseID
-router.post('/buy-course/generate-orderID/:courseID', generateOrderId);
+router.post('/buy-course/generate-orderID/:courseID',isAuthenticated, generateOrderId);
 
 //# POST /course/buy-course/confirm-payment/:courseID
-router.post('/buy-course/confirm-payment/:courseID', confirmOrder);
+router.post('/buy-course/confirm-payment/:courseID',isAuthenticated, confirmOrder);
 
 export default router

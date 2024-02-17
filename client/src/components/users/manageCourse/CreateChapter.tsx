@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import styles from '../../../modulCss/Upload.module.css'; 
 import SignCss from '../forms/Sign.module.css'
 import axios from '../../../config/axios'
@@ -26,12 +26,21 @@ const CreateChapter = () => {
         // Perform the file upload logic here
         console.log('Uploading file:', file.name);
         try {
+            // const {data} = await axios({
+            //   url:`/course/upload/file/${courseID}`,
+            //   method:'POST',
+            //   data:file,
+            //   headers:{
+            //     'Content-Type': 'multipart/form-data'
+            //   }
+            // })
             const {data} = await axios.post(`/course/upload/file/${courseID}`,file)
+            
             setChapterID(data.chapterID);
             setFileData(data.data);
             
         } catch (error) {
-            
+            console.log(error)
         }
 
         // Reset the file state after uploading
@@ -51,7 +60,8 @@ const CreateChapter = () => {
         setSourceLink(e.target.value)
     }
 
-    const creatingCourseHandler = async()=>{
+    const creatingCourseHandler = async(e:React.FormEvent<HTMLFormElement>)=>{
+      e.preventDefault();
         const formData = {
             title:chapterTitle,
             description:description,
@@ -107,7 +117,7 @@ const CreateChapter = () => {
         <div className={`${SignCss.container}`}>
           <div className={`${SignCss.form} ${SignCss.signup} md:min-w-[45vw] p-4 md:p-10`}>
             <h2>Chapter Details</h2>
-            <form onSubmit={creatingCourseHandler}>
+            <form onSubmit={creatingCourseHandler} >
               <div className={`${SignCss.inputBox} md:min-w-[40vw] min-w-[85vw]`}>
                 <input type="text" value={chapterTitle} onChange={chapterTitleChange} required={true} />
                 <i></i>
@@ -115,7 +125,7 @@ const CreateChapter = () => {
               </div>
               <div className={`${SignCss.inputBox}`}>
                 {/* <input type="text" value={description} onChange={descriptionChange} required={true} /> */}
-                <textarea  className={`pl-7 p-2`} onChange={descriptionChange}>{description}</textarea>
+                <textarea value={description}  className={`pl-7 p-2`} onChange={descriptionChange}></textarea>
                 <i></i>
                 <span>Description</span>
               </div>
