@@ -1,11 +1,14 @@
 import express, { Router } from 'express';
 import { isAuthenticated } from '../middlewares/auth';
-import {  confirmOrder, createChapter, createCourse, deleteChapter, deleteCourse, editChapter, editCourse, generateOrderId, uploadChapter } from '../controllers/courseController';
+import {  confirmOrder, courseThumbnail, createChapter, createCourse, deleteChapter, deleteCourse, editChapter, editCourse, generateOrderId, uploadChapter } from '../controllers/courseController';
 import upload from '../middlewares/fileUpload';
 const router:Router = express.Router();
 
 //# POST /course/create-course
 router.post('/create-course', isAuthenticated, createCourse);
+
+//#  POST /course/thumbnail-upload/:id
+router.post('/thumbnail-upload/:id', isAuthenticated, courseThumbnail);
 
 //# POST /course/edit-course/:courseID
 router.post('/edit-course/:courseID', isAuthenticated, editCourse);

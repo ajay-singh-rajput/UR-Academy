@@ -17,6 +17,10 @@ interface Course extends Document {
     price: number;
     chapter: Chapter[];
     category:String;
+    thumbnail:{
+        fileId:string;
+        url:string;
+    };
 }
 
 
@@ -46,7 +50,14 @@ const courseModel:Schema<Course> = new mongoose.Schema<Course>({
         description:String,
         // sourceLink:[{name:String,url:String}],
         mediaLink:{type:String, default:''}
-    }]
+    }],
+    thumbnail:{
+        type:Object,
+        default:{
+            fileId:"",
+            url:"https://images.unsplash.com/photo-1557844681-b0da6a516dc9?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        }
+    },
 },{
     timestamps:true
 })

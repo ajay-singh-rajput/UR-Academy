@@ -111,6 +111,7 @@ const Create = () => {
   const creatingCourseHandler = async(e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
+      
       const formData ={name:courseName, title:title, price:price, category:category}
       const {data} = await axios.post('/course/create-course',formData);
       console.log('course Created', data)

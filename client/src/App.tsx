@@ -83,7 +83,7 @@ useEffect(() => {
 
   return (
     <>
-    <div className='pt-[12vh]  bg-[#223243]  min-h-screen'>
+    <div className='pt-[12vh]  bg-[#223243]  min-h-screen '>
       <div className=''>
 
     <Navbar />

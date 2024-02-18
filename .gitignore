@@ -5,3 +5,4 @@ myinfo.js
 **/images/*.*
 **/res/*.*
 *.json
+.vscode

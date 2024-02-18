@@ -28,30 +28,33 @@ const CreatedCourses = () => {
 
   return (
     <>
-        <div>
-            <div className={` text-gray-300 w-screen overflow-hidden`}>
-                {userCreatedCourse ?  
-                <div className=' m-auto overflow-hidden border-2 border-[#334155]'>
-                <div><h3 className='text-3xl p-5 bg-[#334155]'>Your Creation</h3></div>
-                <div className={`${ccStyle.courseContainer}   justify-start gap-2 p-2 `}>
-                {userCreatedCourse.map((elem:any, ind)=>{
-                    return <MyCourseCard 
-                    key={ind}
-                    courseData={{
-                        title:elem?.title,
-                         price:elem?.price,
-                         category:elem?.category ,
-                         chapter:elem?.chapter.length,
-                         id:elem._id,
-                    }}
-                    />
-                    
-                })}
-                    
+       <div >
+    <div className="text-gray-300 w-screen overflow-hidden relative">
+        {userCreatedCourse ? (
+            <div className=" border-2 border-[#334155] overflow-hidden w-full">
+                <h3 className="text-3xl p-5 w-full bg-[#334155]">Your Creation</h3>
+                <div className="overflow-x-auto ">
+                    {userCreatedCourse.map((elem: any, ind: number) => (
+                        <MyCourseCard
+                            key={ind}
+                            courseData={{
+                                title: elem?.title,
+                                price: elem?.price,
+                                category: elem?.category,
+                                chapter: elem?.chapter.length,
+                                id: elem._id,
+                            }}
+                        />
+                    ))}
                 </div>
-                </div> : <div>Loading</div>}
-                </div>
-        </div>
+            </div>
+        ) : (
+            <div></div>
+        )}
+    </div>
+    
+</div>
+
     </>
   )
 }

@@ -6,7 +6,7 @@ const MyCourseCard = (props:any) => {
     const {courseData} = props;
   return (
     <>
-    <div className={`${cardCss.mainDiv} relative m-3 w-fit bg-[#334155] rounded-2xl p-1 overflow-hidden`}>
+    <div className={`${cardCss.mainDiv} relative m-3 w-fit bg-[#334155] rounded-2xl p-1 overflow-hidden inline-block`}>
         <div className={` h-48 rounded aspect-video bg-[url("https://images.twinkl.co.uk/tw1n/image/private/t_630_eco/website/uploaded/thumbnail-1647008289.png")] bg-cover bg-no-repeat relative`}>
         <svg id="visual" viewBox="0 0 960 540"  xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1">
