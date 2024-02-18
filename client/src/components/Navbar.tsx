@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import navCss from '../modulCss/Nav.module.css'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion, useAnimation } from 'framer-motion'
 import { RiSearch2Line, RiUser2Line } from "@remixicon/react";
 import { useAppDispatch, useAppSelector } from './store/store';
@@ -15,7 +15,9 @@ const Navbar = () => {
   const [searchValue, setSearchValue] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { isAuth, user } = useAppSelector(state => state.user);
+  const [isActive, setIsActive] = useState(false)
   const dispatch = useAppDispatch()
+  const navigate = useNavigate();
 
   const toggleMenu = async () => {
     setIsMenuOpenCheck(!isMenuOpenCheck);
@@ -49,44 +51,101 @@ const Navbar = () => {
     };
   }, [isSearchOpen]);
 
+  const navigateToPage = (item:string)=>{
+    navigate(`/${item}`)
+  }
+  
 
-
+  const perspective = {
+    initial: {
+      opacity: 0,
+      rotateX: 90,
+      translateY: 80,
+      translateX: -20,
+    },
+    enter: (i: number) => ({
+      opacity: 1,
+      rotateX: 0,
+      translateY: 0,
+      translateX: 0,
+      transition: {
+        duration: 0.65,
+        // opacity:{duration:0.45},
+        delay: 0.5 + (i * 0.1),
+        ease: [.215, .61, .355, 1]
+      }
+    }),
+    exit: {
+      opacity: 0,
+      transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] }
+    }
+  }
+  const variant = {
+    open: {
+      width: 480,
+      height: 450,
+      // top:"-10px",
+      // right:-"100px",
+      transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] }
+    },
+    close: {
+      width: 480,
+      height: 40,
+      // top:0,
+      // left:0,
+      transition: { duration: 0.75, delay: 0.35, ease: [0.76, 0, 0.24, 1] }
+    }
+  }
 
 
   return (
     <div className={`fixed top-0 left-0 z-50 ${isMenuOpen ? 'h-screen' : 'h-fit'}`}>
       <nav className={` w-screen  text-cyan-50 ${navCss.navbar}`}>
-        <div className={`absolute m-auto top-0 left-[50%] translate-x-[-50%] -translate-y-3`}>
-          <div className={`${navCss.searchBar}`}>
-            <motion.div
-              initial={{ width: '2rem' }}
-              animate={{ width: isSearchOpen ? '8rem' : '2rem' }}
-              transition={{ duration: 0.3 }}
-              className={`cursor-pointer`}
-              onClick={() => setIsSearchOpen(!isSearchOpen)}
-            >
-              <RiSearch2Line size={20} color="#1E293B" />
-            </motion.div>
-            {isSearchOpen && (
-              <input
-                type="search"
-                className={`${navCss.searchInput}`}
-                name="search"
-                pattern=".*\S.*"
-                required
-                value={searchValue}
-                onChange={(e) => setSearchValue(e.target.value)}
-                onBlur={() => setIsSearchOpen(false)}
-              />
-            )}
-          </div>
-        </div>
+        
 
         <div className='w-screen relative flex justify-between px-3 items-center h-14'>
           <span className={`${navCss.logo}`}><NavLink to='/'>UR-Academy</NavLink>  </span>
           <span className='flex justify-center relative h-[10vh] items-center gap-2'>
-            {isAuth && <> <span className='hover:text-cyan-300 cursor-pointer md:block hidden'><Link to='/Profile'>Profile</Link> </span> <RiUser2Line size={36} className='md:hidden' />
-              <span onClick={() => { dispatch(asyncLogOutUser()) }} className={`text-xs text-red-400 border-2 p-2 rounded-full border-slate-500 bg-slate-800 cursor-pointer hover:bg-slate-500 hover:border-slate-800 `}>Log-Out</span></>}
+            {isAuth && <>
+              <span onMouseEnter={() => setIsActive(true)} onMouseLeave={() => setIsActive(false)} className='hover:text-cyan-300 cursor-pointer md:block hidden absolute top-5 -left-28'>
+                <Link to='/Profile'>Profile</Link>
+                <motion.div
+                  className={`${navCss.menuDivS} w-[480px] h-[450px] bg-[#334155] rounded-3xl gap-3 absolute top-0 -z-10`}
+                  variants={variant}
+                  animate={isActive ? 'open' : 'close'}
+                  initial='close'
+                >
+                  <AnimatePresence>
+                    {isActive && <div className={`${navCss.optionHolder} h-full pt-11 px-10 pb-12 box-border flex flex-col `}>
+                      {['Profile', 'Manage Course', 'Edit Profile','Upload Course'].map((item, ind) => {
+                        return <div 
+                        onClick={()=>{navigateToPage(item)}}
+                        key={ind} 
+                        className={`${navCss.optionContainer} bg-transparent border-none flex flex-col gap-3 hover:font-semibold`}>
+                          <motion.div
+                            custom={ind}
+                            variants={perspective}
+                            animate='enter'
+                            exit='exit'
+                            initial='initial'
+                          >
+                            <span className='text-gray-400 text-3xl '>{item}</span>
+                          </motion.div>
+                        </div>
+                      })}
+
+                      <motion.span custom={5}
+                            variants={perspective}
+                            animate='enter'
+                            exit='exit'
+                            initial='initial'
+                            onClick={() => { dispatch(asyncLogOutUser()) }} 
+                            className={`text-xs mt-3  p-2 rounded-full  bg-slate-800 cursor-pointer hover:bg-slate-500 hover:border-slate-800 `}>Log-Out</motion.span>
+                    </div>}
+                  </AnimatePresence>
+                </motion.div>
+              </span> <RiUser2Line size={36} className='md:hidden' />
+            </>}
             {!isAuth && <><NavLink className={` p-2 px-4 md:block hidden rounded-full ${navCss.shadow} ${navCss.loginBtn} ${(e: any) => { return e.isActive ? `text-cyan-300` : `` }}`} to='/login'>Log-In</NavLink>
               <NavLink className={` p-2 px-4 md:block hidden rounded-full ${navCss.shadow} ${navCss.register}`} to='/register'>Register</NavLink></>}
             <button className={`${navCss.menu} ${isMenuOpenCheck ? navCss.opened : ``}`} onClick={toggleMenu} aria-label="Main Menu">

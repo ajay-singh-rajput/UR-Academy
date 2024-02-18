@@ -160,161 +160,29 @@ box-shadow: inset 15px 15px 30px #141a22,
     backdrop-filter: blur(5px);
     border: 1px solid rgba(71,85,105,0.125);;
   }
+
+  /*! ------------- */
+
+
+ 
+.optionContainer{
+    perspective: 120px;
+    perspective-origin: bottom;
+    
+}
+
+
+.menuDivS{
+  transform: translateX(-30%);
+  /* -webkit-box-shadow: -0.5px 2.5px 7px -1.5px #01dfc552;
+  -moz-box-shadow: -0.5px 2.5px 7px -1.5px #01dfc552;
+  box-shadow: -0.5px 2.5px 7px -1.5px #01dfc552; */
+-webkit-box-shadow: inset 0 0 5.5px 0 #223243;
+-moz-box-shadow: inset 0 0 5.5px 0 #223243;
+box-shadow: inset 0 0 5.5px 0 #223243;
+}
+
+
+
   
 
-  /*! search icon  */
-
-  :root {
-    font-size: calc(16px + (24 - 16) * (100vw - 320px) / (1920 - 320));
-  }
-  
-  .searchBtn,
-  .searchInput {
-    font: 1em Hind, sans-serif;
-    /* line-height: 1.5em; */
-  }
-  
-  .searchInput {
-    color: #171717;
-  }
-  .searchBar{
-    z-index: 1;
-    display: flex;
-  }
-  
-  
-  .searchBar .searchInput,
-  .searchBtn,
-  .searchBtn:before,
-  .searchBtn:after {
-    transition: all 0.25s ease-out;
-  }
-  .searchBar .searchInput,
-  .searchBtn {
-    width: 3em;
-    height: 3em;
-  }
-  .searchBar .searchInput:invalid:not(:focus),
-  .searchBtn {
-    cursor: pointer;
-  }
-  .searchBar,
-  .searchBar .searchInput:focus,
-  .searchBar .searchInput:valid {
-    width: 100%;
-  }
-  .searchBar .searchInput:focus,
-  .searchBar .searchInput:not(:focus) + .searchBtn:focus {
-    outline: transparent;
-  }
-  .searchBar {
-    margin: auto;
-    padding: 1.5em;
-    justify-content: center;
-    max-width: 30em;
-  }
-  .searchBar .searchInput {
-    background: transparent;
-    border-radius: 1.5em;
-    box-shadow: 0 0 0 0.4em #fff inset;
-    padding: 0.75em;
-    transform: translate(0.5em, 0.5em) scale(0.5);
-    transform-origin: 100% 0;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-  }
-  .searchBar .searchInput::-webkit-search-decoration {
-    -webkit-appearance: none;
-  }
-  .searchBar .searchInput:focus,
-  .searchBar .searchInput:valid {
-    background: #fff;
-    border-radius: 0.375em 0 0 0.375em;
-    box-shadow: 0 0 0 0.1em #d9d9d9 inset;
-    transform: scale(1);
-  }
-  .searchBtn {
-    background: #fff;
-    border-radius: 0 0.75em 0.75em 0 / 0 1.5em 1.5em 0;
-    padding: 0.75em;
-    position: relative;
-    transform: translate(0.25em, 0.25em) rotate(45deg) scale(0.25, 0.125);
-    transform-origin: 0 50%;
-  }
-  .searchBtn:before,
-  .searchBtn:after {
-    content: "";
-    display: block;
-    opacity: 0;
-    position: absolute;
-  }
-  .searchBtn:before {
-    border-radius: 50%;
-    box-shadow: 0 0 0 0.2em #f1f1f1 inset;
-    top: 0.75em;
-    left: 0.75em;
-    width: 1.2em;
-    height: 1.2em;
-  }
-  .searchBtn:after {
-    background: #f1f1f1;
-    border-radius: 0 0.25em 0.25em 0;
-    top: 51%;
-    left: 51%;
-    width: 0.75em;
-    height: 0.25em;
-    transform: translate(0.2em, 0) rotate(45deg);
-    transform-origin: 0 50%;
-  }
-  .searchBtn span {
-    display: inline-block;
-    overflow: hidden;
-    width: 1px;
-    height: 1px;
-  }
-  
-  /* Active state */
-  .searchBar .searchInput:focus + .searchBtn,
-  .searchBar .searchInput:valid + .searchBtn {
-    background: #2762f3;
-    border-radius: 0 0.375em 0.375em 0;
-    transform: scale(1);
-  }
-  .searchBar .searchInput:focus + .searchBtn:before,
-  .searchBar .searchInput:focus + .searchBtn:after,
-  .searchBar .searchInput:valid + .searchBtn:before,
-  .searchBar .searchInput:valid + .searchBtn:after {
-    opacity: 1;
-  }
-  .searchBar .searchInput:focus + .searchBtn:hover,
-  .searchBar .searchInput:valid + .searchBtn:hover,
-  .searchBar .searchInput:valid:not(:focus) + .searchBtn:focus {
-    background: #0c48db;
-  }
-  .searchBar .searchInput:focus + .searchBtn:active,
-  .searchBar .searchInput:valid + .searchBtn:active {
-    transform: translateY(1px);
-  }
-  
-  @media screen and (prefers-color-scheme: dark) {
-    body,
-    .searchInput {
-      color: #f1f1f1;
-    }
-    body {
-      background: #171717;
-    }
-    .searchBar .searchInput {
-      box-shadow: 0 0 0 0.4em #f1f1f1 inset;
-    }
-    .searchBar .searchInput:focus,
-    .searchBar .searchInput:valid {
-      background: #3d3d3d;
-      box-shadow: 0 0 0 0.1em #3d3d3d inset;
-    }
-    .searchBtn {
-      background: #f1f1f1;
-    }
-  }
-  

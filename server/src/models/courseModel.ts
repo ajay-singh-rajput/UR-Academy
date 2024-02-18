@@ -16,6 +16,7 @@ interface Course extends Document {
     subscriber: (mongoose.Schema.Types.ObjectId | string)[];
     price: number;
     chapter: Chapter[];
+    category:String;
 }
 
 
@@ -34,6 +35,10 @@ const courseModel:Schema<Course> = new mongoose.Schema<Course>({
         type:Number,
         default:0,
         require:true
+    },
+    category:{
+        type:String,
+        require:true,
     },
     chapter:[{
         id:String,

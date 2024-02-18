@@ -16,6 +16,7 @@ import { Link } from 'react-router-dom'
 import CreateChapter from './components/users/manageCourse/CreateChapter'
 import WatchCourse from './components/users/handleCourse/WatchCourse'
 import { Courser } from './components/otherComponents/Cursor'
+import CreatedCourses from './components/users/manageCourse/CreatedCourses'
 
 // import LocomotiveScroll from 'locomotive-scroll';
 
@@ -93,7 +94,8 @@ useEffect(() => {
       <Route path='/register' element={<SignIn/>}/>
       <Route path='/login' element={<LogIn/>}/>
       <Route path='/Profile' element={<ProfileView/>}/>
-      <Route path='/Create-Course' element={<Create/>}/>
+      <Route path='/Upload Course' element={<Create/>}/>
+      <Route path='/Manage Course' element={<CreatedCourses/>}/>
       <Route path='/create-chapter/:courseID' element={<CreateChapter/>}/>
       <Route path='/watch-chapter/:courseID' element={<WatchCourse/>}/>
     </Routes>

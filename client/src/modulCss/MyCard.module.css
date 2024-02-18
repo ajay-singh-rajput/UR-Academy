@@ -1,0 +1,22 @@
+.mainDiv{
+    -webkit-box-shadow: 0 0 3px 4px #334155;
+-moz-box-shadow: 0 0 3px 4px #334155;
+box-shadow: 0 0 3px 4px #334155;
+transition: all ease 0.5s;
+
+}
+.path1, .path2{
+    transition: all ease 0.5s;
+}
+
+.mainDiv:hover .path1 {
+    transform: translateY(15%)
+}
+.mainDiv:hover .path2 {
+    transform:  translateY(-15%)
+}
+.mainDiv:hover{
+    -webkit-box-shadow: 0 0 3px 1px #01DFC4;
+-moz-box-shadow: 0 0 3px 1px #01DFC4;
+box-shadow: 0 0 3px 1px #01DFC4;
+}

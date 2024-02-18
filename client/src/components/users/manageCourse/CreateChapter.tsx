@@ -11,7 +11,7 @@ const CreateChapter = () => {
     const [chapterID, setChapterID] = useState<String>();
     const [chapterTitle, setChapterTitle] = useState('');
     const [description, setDescription] = useState('')
-    const [sourceLink, setSourceLink] = useState('')
+    // const [sourceLink, setSourceLink] = useState('')
     const navigate = useNavigate()
 
 
@@ -59,9 +59,9 @@ const CreateChapter = () => {
     const descriptionChange = (e:React.ChangeEvent<HTMLTextAreaElement>)=>{
         setDescription(e.target.value)
     }
-    const sourceLinkChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
-        setSourceLink(e.target.value)
-    }
+    // const sourceLinkChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
+    //     setSourceLink(e.target.value)
+    // }
 
     const creatingCourseHandler = async(e:React.FormEvent<HTMLFormElement>)=>{
       e.preventDefault();
@@ -132,11 +132,11 @@ const CreateChapter = () => {
                 <i></i>
                 <span>Description</span>
               </div>
-              <div className={`${SignCss.inputBox}`}>
-                <input type="url" value={sourceLink} onChange={sourceLinkChange} required={true} />
+              {/* <div className={`${SignCss.inputBox}`}> */}
+                {/* <input type="url" value={sourceLink} onChange={sourceLinkChange} required={true} /> */}
                 <i></i>
-                <span>Source Link</span>
-              </div>
+                {/* <span>Source Link</span> */}
+              {/* </div> */}
               <div className={`${SignCss.inputBox}`}>
                 <input type="submit" value="Create Chapter" />
               </div>

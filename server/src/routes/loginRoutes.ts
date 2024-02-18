@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { fetchUserDetails, homePage, loginUser, registerUser, userAvatar, userForgetLink, userResetPassword, userSendMail, userSignOut, userUpdate, verifyUserLink, verifyUserOTP } from '../controllers/loginController';
+import { fetchUserCreatedCourses, fetchUserDetails, fetchUserSubscribedCourses, homePage, loginUser, registerUser, userAvatar, userForgetLink, userResetPassword, userSendMail, userSignOut, userUpdate, verifyUserLink, verifyUserOTP } from '../controllers/loginController';
 import { isAuthenticated } from '../middlewares/auth';
 const router:Router = express.Router();
 
@@ -7,7 +7,14 @@ const router:Router = express.Router();
 // * GET /
 router.get('/',homePage);
 
+//* POST /fetchUserDetails
 router.post('/fetchUserDetails',isAuthenticated, fetchUserDetails)
+
+//* POST /fetchUserCreatedCourses
+router.post('/fetchUserCreatedCourses',isAuthenticated, fetchUserCreatedCourses)
+
+//* POST /fetchUserSubscribedCourses
+router.post('/fetchUserSubscribedCourses',isAuthenticated, fetchUserSubscribedCourses)
 
 // * POST /register
 router.post('/register', registerUser);

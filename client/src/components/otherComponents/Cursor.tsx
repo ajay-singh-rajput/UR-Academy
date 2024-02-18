@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 
 export const Courser = () => {
     const [isHovered, setIsHovered] = useState(false)
-    const cursorSize = isHovered ? 60 : 20;
+    const cursorSize = isHovered ? 60 : 30;
     const mouse = {
         x:useMotionValue(0),
         y:useMotionValue(0)
@@ -53,8 +53,7 @@ export const Courser = () => {
     <motion.div 
     style={{left: smoothMouse.x, top:smoothMouse.y}} 
     animate={{width:cursorSize, height:cursorSize}}
-    className='w-12 h-12 border-2 pointer-events-none border-[#00dfc4] fixed rounded-full z-50 '>
-
+    className='w-12 h-12 border-2 pointer-events-none shadow-slate-700 shadow-inner border-[#00dfc4] fixed rounded-full z-50  text-6xl'>
     </motion.div>
   )
 }

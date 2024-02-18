@@ -15,10 +15,23 @@ export const homePage = catchAsyncError(async (req: Request, res: Response, next
 })
 
 export const fetchUserDetails = catchAsyncError(async (req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) => {
-    console.log(req.id)
     const user = await UserModel.findById(req.id).exec()
     !user ? next(new ErrorHandler('user not found', 404)) : ''
     res.json({ message: 'user details get successfully', user: user })
+})
+
+export const fetchUserCreatedCourses = catchAsyncError(async (req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) => {
+    const user = await UserModel.findById(req.id).populate('createdCourses').exec()
+    !user ? next(new ErrorHandler('user not found', 404)) : ''
+    const createdCourses = user?.createdCourses;
+    res.json({ message: 'Course details get successfully', courses: createdCourses })
+})
+
+export const fetchUserSubscribedCourses = catchAsyncError(async (req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) => {
+    const user = await UserModel.findById(req.id).populate('subscribedCourses').exec()
+    !user ? next(new ErrorHandler('user not found', 404)) : ''
+    const subscribedCourses = user?.subscribedCourses;
+    res.json({ message: 'Course details get successfully', courses: subscribedCourses })
 })
 
 export const registerUser = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
