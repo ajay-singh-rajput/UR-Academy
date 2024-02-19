@@ -33,30 +33,6 @@ export const createCourse = catchAsyncError(async (req: IGetUserAuthInfoRequest,
   res.json({ message: 'created successfully', course: newCourse._id });
 });
 
-export const courseThumbnail = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
-  const course = await CourseModel.findById(req.params.id);
-  if (!course) return next(new ErrorHandler("Course not found", 404))
-
-  const file: UploadedFile | undefined = req.files?.avatar as UploadedFile;
-
-  const modifiedFileName = `thumbnail-${Date.now()}${path.extname(file.name)}`;
-
-  if (course.thumbnail.fileId !== "") {
-      await imagekit.deleteFile(course.thumbnail.fileId);
-  }
-
-  const { fileId, url } = await imagekit.upload({
-      file: file.data,
-      fileName: modifiedFileName,
-  });
-  course.thumbnail = { fileId, url };
-  await course.save();
-  res.status(200).json({
-      success: true,
-      message: "Thumbnail updated!",
-  })
-})
-
 export const uploadChapter = catchAsyncError(async (req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) => {
   const course = await CourseModel.findById(req.params.id);
   console.log(req.params.id);

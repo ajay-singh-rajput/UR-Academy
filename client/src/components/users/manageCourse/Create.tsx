@@ -4,6 +4,7 @@ import { RiBook2Line, RiBookOpenLine, RiListView, RiMoneyRupeeCircleLine } from 
 import { useAppSelector } from '../../store/store'
 import { useNavigate } from 'react-router-dom'
 import axios from '../../../config/axios'
+import UploadThumbnail from './UploadThumnail'
 
 const Create = () => {
   const [courseName, setCourseName] = useState('')
@@ -111,11 +112,10 @@ const Create = () => {
   const creatingCourseHandler = async(e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
-      
       const formData ={name:courseName, title:title, price:price, category:category}
       const {data} = await axios.post('/course/create-course',formData);
       console.log('course Created', data)
-      navigate(`/create-chapter/${data.course}`)
+      navigate(`/create-chapter/${data.course}/true`)
     } catch (error) {
       
     }

@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { fetchUserCreatedCourses, fetchUserDetails, fetchUserSubscribedCourses, homePage, loginUser, registerUser, userAvatar, userForgetLink, userResetPassword, userSendMail, userSignOut, userUpdate, verifyUserLink, verifyUserOTP } from '../controllers/loginController';
+import { courseThumbnail, fetchUserCreatedCourses, fetchUserDetails, fetchUserSubscribedCourses, homePage, loginUser, registerUser, userAvatar, userForgetLink, userResetPassword, userSendMail, userSignOut, userUpdate, verifyUserLink, verifyUserOTP } from '../controllers/loginController';
 import { isAuthenticated } from '../middlewares/auth';
 const router:Router = express.Router();
 
@@ -46,6 +46,8 @@ router.post('/update-profile/:id', isAuthenticated, userUpdate);
 // * POST /avatar-upload/:id
 router.post('/avatar-upload/:id', isAuthenticated, userAvatar);
 
+//#  POST /course/thumbnail-upload/:id
+router.post('/course/thumbnail-upload/:id', isAuthenticated, courseThumbnail);
 
 
 export default router;

@@ -43,6 +43,7 @@ const CreatedCourses = () => {
                                 category: elem?.category,
                                 chapter: elem?.chapter.length,
                                 id: elem._id,
+                                thumbnail:elem?.thumbnail
                             }}
                         />
                     ))}

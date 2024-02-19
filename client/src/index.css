@@ -37,3 +37,16 @@ background-color: transparent;
 {
 	background-color: #00DDC3;
 }
+
+.thumbnailUploadDiv{
+  background: rgba(0,0,0,0.35);
+-webkit-backdrop-filter: blur(10px);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(0,0,0,0.175);
+}
+
+input::-webkit-file-upload-button{
+  background: #223243;
+  color: #00DDC3;
+  border: none;
+}

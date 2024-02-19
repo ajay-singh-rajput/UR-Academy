@@ -1,26 +1,32 @@
-import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import cardCss from '../../modulCss/MyCard.module.css'
-import { RiBook2Line, RiMoneyRupeeCircleLine, RiTimeLine } from '@remixicon/react';
+import { RiBook2Line, RiMoneyRupeeCircleLine } from '@remixicon/react';
 
 const MyCourseCard = (props:any) => {
     const {courseData} = props;
+    const navigate = useNavigate()
+    const openCourse = ()=>{
+        navigate(`/Course/Course/${courseData.id}`);
+    }
+
   return (
     <>
-    <div className={`${cardCss.mainDiv} relative m-3 w-fit bg-[#334155] rounded-2xl p-1 overflow-hidden inline-block`}>
-        <div className={` h-48 rounded aspect-video bg-[url("https://images.twinkl.co.uk/tw1n/image/private/t_630_eco/website/uploaded/thumbnail-1647008289.png")] bg-cover bg-no-repeat relative`}>
-        <svg id="visual" viewBox="0 0 960 540"  xmlns="http://www.w3.org/2000/svg"
+    <div onClick={openCourse} className={`${cardCss.mainDiv} relative m-3 w-fit bg-[#334155] rounded-2xl p-1 overflow-hidden inline-block`}>
+        <div className={` h-48 rounded aspect-video bg-cover bg-no-repeat relative`}>
+            <img className={`w-full h-full object-cover`}  src={courseData.thumbnail.url} alt='here us thumbnail' />
+        <svg id="visual" className={`absolute top-0 left-0`} viewBox="0 0 960 540"  xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1">
     <rect x="0" y="0" width="960" height="540" fill="rgba(0,18,32,0)"></rect>
     <defs>
         <linearGradient id="grad1_0" x1="43.8%" y1="100%" x2="100%" y2="0%">
-            <stop offset="14.444444444444446%" stop-color="#001220" stop-opacity="1"></stop>
-            <stop offset="85.55555555555554%" stop-color="#001220" stop-opacity="1"></stop>
+            <stop offset="14.444444444444446%" stopColor="#001220" stopOpacity="1"></stop>
+            <stop offset="85.55555555555554%" stopColor="#001220" stopOpacity="1"></stop>
         </linearGradient>
     </defs>
     <defs>
         <linearGradient id="grad2_0" x1="0%" y1="100%" x2="56.3%" y2="0%">
-            <stop offset="14.444444444444446%" stop-color="#001220" stop-opacity="1"></stop>
-            <stop offset="85.55555555555554%" stop-color="#001220" stop-opacity="1"></stop>
+            <stop offset="14.444444444444446%" stopColor="#001220" stopOpacity="1"></stop>
+            <stop offset="85.55555555555554%" stopColor="#001220" stopOpacity="1"></stop>
         </linearGradient>
     </defs>
     <g transform="translate(960, 540)">

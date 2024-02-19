@@ -1,74 +1,56 @@
 import React, { FormEvent, useState } from 'react';
-import styles from '../../../modulCss/Upload.module.css'; 
 import SignCss from '../forms/Sign.module.css'
 import axios from '../../../config/axios'
 import { useNavigate, useParams } from 'react-router-dom';
+import UploadThumbnail from './UploadThumnail';
+import { RiBallPenLine, RiFileTextLine, RiVideoAddLine } from '@remixicon/react';
+import { useAppDispatch } from '../../store/store';
+import { receivedError } from '../../store/slices/erroHandlerSlice';
 
 const CreateChapter = () => {
     const [file, setFile] = useState<File | null>(null);
-    const {courseID} = useParams();
+    const {courseID, thumb} = useParams();
     const [fileData, setFileData] = useState<any>();
     const [chapterID, setChapterID] = useState<String>();
     const [chapterTitle, setChapterTitle] = useState('');
     const [description, setDescription] = useState('')
-    // const [sourceLink, setSourceLink] = useState('')
+    const [isVideoUploading, setIsVideoUploading] = useState(false)
+    const [uploadDone, setUploadDone] = useState(false)
     const navigate = useNavigate()
+    const dispatch = useAppDispatch()
 
-
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
       if (e.target.files && e.target.files.length > 0) {
         setFile(e.target.files[0]);
-      }
-    };
-  
-    const handleUpload = async() => {
-      if (file) {
-        // Perform the file upload logic here
-        const formData = new FormData();
-      formData.append('file', file as File);
-        console.log('Uploading file:', file.name);
-        try {
-            // const {data} = await axios({
-            //   url:`/course/upload/file/${courseID}`,
-            //   method:'POST',
-            //   data:file,
-            //   headers:{
-            //     'Content-Type': 'multipart/form-data'
-            //   }
-            // })
+        const videoFile = e.target.files[0]
+          const formData = new FormData();
+          formData.append('file', videoFile as File);
+          console.log('Uploading file:', videoFile.name);
+          try {
+            setIsVideoUploading(true)
             const {data} = await axios.post(`/course/upload/file/${courseID}`,formData)
-            
             setChapterID(data.chapterID);
             setFileData(data.data);
             console.log(data)
-            
-        } catch (error) {
+            setUploadDone(true)
+          } catch (error:any) {
             console.log(error)
-        }
-
-        // Reset the file state after uploading
-        // setTimeout(() => {
-        //   setFile(null);
-        // }, 5000);
+            if(error.response){
+              dispatch(receivedError({isSuccess:false, message:error?.response.data.message}))
+            } else{
+              dispatch(receivedError({isSuccess:false, message:'unable to connect with server'}))
+            }
+          }
+          setIsVideoUploading(false);
+        
       }
     };
-
-    const chapterTitleChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
-        setChapterTitle(e.target.value)
-    }
-    const descriptionChange = (e:React.ChangeEvent<HTMLTextAreaElement>)=>{
-        setDescription(e.target.value)
-    }
-    // const sourceLinkChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
-    //     setSourceLink(e.target.value)
-    // }
-
+  
     const creatingCourseHandler = async(e:React.FormEvent<HTMLFormElement>)=>{
       e.preventDefault();
         const formData = {
             title:chapterTitle,
             description:description,
-            // sourceLink:sourceLink,
             mediaLink:fileData.url
         }
         try {
@@ -78,65 +60,38 @@ const CreateChapter = () => {
         } catch (error) {
             console.log('create error', error)
         }
-
     }
-  
+
     return (
         <div className=''>
-      <div className={styles.wrapper}>
-        <h1>Upload Your File</h1>
-        <div className={`${styles.uploadWrapper}`}>
-        <div className={`${styles.upload} ${styles.dropArea}`}>
-          <div className={styles.uploadInfo}>
-            <svg
-              className={styles.clip}
-              viewBox="0 0 1024 1024"
-              width="20"
-              height="20"
-              p-id="3250"
-            >
-              <path
-            d="M645.51621918 141.21142578c21.36236596 0 41.79528808 4.04901123 61.4025879 12.06298852a159.71594214 159.71594214 0 0 1 54.26367236 35.87255836c15.84503198 16.07739258 27.76959252 34.13726783 35.78356909 54.13513184 7.86071778 19.30572486 11.76635766 39.80291724 11.76635767 61.53607177 0 21.68371583-3.90563989 42.22045875-11.76635767 61.54101586-8.01397729 19.99291992-19.95831275 38.02807617-35.78356909 54.08569313l-301.39672877 302.0839231c-9.21038818 9.22027564-20.15112281 16.48278832-32.74310277 21.77270508-12.29040503 4.81036401-24.54125953 7.19329834-36.82177783 7.19329834-12.29040503 0-24.56103516-2.38293433-36.85638427-7.19329834-12.63647461-5.28991675-23.53271461-12.55737281-32.7381587-21.77270508-9.55151367-9.58117675-16.69042992-20.44775367-21.50573731-32.57995583-4.7856443-11.61804223-7.15869117-23.91339135-7.15869188-36.9255979 0-13.14074708 2.37304688-25.55474854 7.16363524-37.19256639 4.81036401-11.94927954 11.94927954-22.78619408 21.50079395-32.55029274l278.11614966-278.46221923c6.45172119-6.51104737 14.22344971-9.75421118 23.27563501-9.75421119 8.8692627 0 16.54705787 3.24316383 23.03338622 9.75421119 6.47644019 6.49127173 9.73937964 14.18389916 9.73937964 23.08282495 0 9.0521853-3.26293945 16.81896972-9.73937964 23.32012891L366.97489888 629.73773218c-6.32812477 6.2935183-9.48724342 14.08007836-9.48724415 23.30529736 0 9.06701684 3.15417457 16.75964356 9.48724414 23.08776904 6.80273414 6.50610328 14.55963111 9.75915528 23.26574683 9.75915527 8.67150855 0 16.43334961-3.253052 23.27563501-9.76409935l301.37695313-302.04931665c18.93988037-18.96459937 28.40734887-42.04742432 28.40734814-69.25836158 0-27.16149926-9.4674685-50.26409912-28.40734815-69.22869849-19.44415283-19.13269043-42.55664086-28.72375464-69.31274438-28.72375536-26.97363258 0-49.99218727 9.59106422-69.1001587 28.72375536L274.3370815 536.89227319a159.99774146 159.99774146 0 0 0-35.80828883 54.33288526c-8.0337522 19.65179443-12.04321289 40.2824707-12.04321289 61.79809618 0 21.20910645 4.00451661 41.81011963 12.04321289 61.79809547 8.17218018 20.34393287 20.10168481 38.36920166 35.80828883 54.08569312 16.225708 16.06256104 34.30535888 28.13049292 54.23400854 36.15930176 19.91381813 8.0337522 40.47033667 12.06793189 61.64978002 12.0679326 21.13989281 0 41.70135474-4.03417969 61.63000513-12.0679326 19.91876221-8.02386474 38.01818872-20.09674073 54.2241211-36.15435768l300.86773656-301.53515601c6.47644019-6.50115991 14.23828125-9.76904273 23.28057912-9.76904344 8.88903833 0 16.56188941 3.26293945 23.04821776 9.76904344 6.48632836 6.48632836 9.7245481 14.17895508 9.7245481 23.06799269 0 9.09667992-3.23822046 16.8535769-9.7245481 23.37451172L552.40379244 815.35449242c-22.00012231 22.01989722-47.32745362 38.88336158-75.986938 50.49151564C449.10209565 877.14270043 420.37834101 882.78857422 390.21592671 882.78857422c-30.01904297 0-58.74279761-5.64587378-86.20587183-16.94256616-28.6842041-11.60815406-54.00659203-28.47161842-76.00671362-50.49151564a226.19586182 226.19586182 0 0 1-50.13061524-75.90289354A226.86328125 226.86328125 0 0 1 160.9697104 653.04797364c0-30.08331323 5.62115479-58.88122559 16.90795899-86.38385035 11.40545654-28.37768578 28.11566138-53.75939917 50.13061523-76.15997313h0.24719287L530.14164643 189.20135474c15.69177247-15.731323 33.68737817-27.70037818 53.98681641-35.89727735C604.09666377 145.26043701 624.55430562 141.23120141 645.51127583 141.23120141V141.21142578z"
-            p-id="3251"
-          ></path>
-            </svg>
-            <span className={`${styles.uploadFilename} ${file ? '' : styles.inactive} ${styles.dropText}`}>
-              {file ? file.name : 'No file selected'}
-            </span>
-          </div>
-          <button className={styles.uploadButton} onClick={handleUpload} disabled={!file}>
-            <input type="file" id="file" className={`${file && 'hidden'}`} onChange={handleFileChange} />
-            <label htmlFor="file" className={`${styles.uploadButtonText} `}>
-              {file ? 'Upload' : 'Choose file'}
-            </label>
-          </button>
-          <div className={styles.uploadHint}>Uploading...</div>
-          <div className={styles.uploadProgress}></div>
-        </div>
-        </div>
-      </div>
+         {thumb !== 'false' && <UploadThumbnail data={{open: thumb, courseID:courseID}} />}
       <div>
       <div className={`${SignCss.body}`}>
         <div className={`${SignCss.container}`}>
           <div className={`${SignCss.form} ${SignCss.signup} md:min-w-[45vw] p-4 md:p-10`}>
             <h2>Chapter Details</h2>
+           {!isVideoUploading ? !uploadDone &&<div className={`${SignCss.inputBox}`}>
+              <input className='w-fit h-fit' type="file" accept='video/mp4' placeholder='upload file'onChange={handleFileChange} />
+              <i><RiVideoAddLine/></i>
+                <span>Video</span>
+              </div>
+                :<div className='w-full flex flex-col items-center justify-center border-2 border-[#00dfc4] p-3 rounded-full'>
+                  <p>Uploading File</p>
+                <div className="w-12 h-12 rounded-full animate-spin
+                    border border-solid border-yellow-500 border-t-transparent shadow-md"></div>
+              </div>}
+              {uploadDone && <h1 className='border-2 border-[#00dfc4] p-3 rounded-full text-[#00dfc4]'>file Uploaded Successfully</h1>}
             <form onSubmit={creatingCourseHandler} >
               <div className={`${SignCss.inputBox} md:min-w-[40vw] min-w-[85vw]`}>
-                <input type="text" value={chapterTitle} onChange={chapterTitleChange} required={true} />
-                <i></i>
+                <input type="text" value={chapterTitle} onChange={e => setChapterTitle(e.target.value)} required={true} />
+                <i><RiBallPenLine/></i>
                 <span>Title Of Chapter</span>
               </div>
               <div className={`${SignCss.inputBox}`}>
-                {/* <input type="text" value={description} onChange={descriptionChange} required={true} /> */}
-                <textarea value={description}  className={`pl-7 p-2`} onChange={descriptionChange}></textarea>
-                <i></i>
+                <textarea value={description}  className={`pl-11 p-2 text-gray-200`} onChange={e => setDescription(e.target.value)}></textarea>
+                <i><RiFileTextLine/></i>
                 <span>Description</span>
               </div>
-              {/* <div className={`${SignCss.inputBox}`}> */}
-                {/* <input type="url" value={sourceLink} onChange={sourceLinkChange} required={true} /> */}
-                <i></i>
-                {/* <span>Source Link</span> */}
-              {/* </div> */}
               <div className={`${SignCss.inputBox}`}>
                 <input type="submit" value="Create Chapter" />
               </div>

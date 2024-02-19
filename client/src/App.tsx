@@ -96,14 +96,14 @@ useEffect(() => {
       <Route path='/Profile' element={<ProfileView/>}/>
       <Route path='/Upload Course' element={<Create/>}/>
       <Route path='/Manage Course' element={<CreatedCourses/>}/>
-      <Route path='/create-chapter/:courseID' element={<CreateChapter/>}/>
+      <Route path='/create-chapter/:courseID/:thumb' element={<CreateChapter/>}/>
       <Route path='/watch-chapter/:courseID' element={<WatchCourse/>}/>
     </Routes>
     </div>
     {isLoading ? <Loading />:''}
 
- {false &&<nav className='bg-red-400 flex gap-2 absolute bottom-0 left-0'>
-  {['register', 'login', 'Profile', 'Create-Course','create-chapter/123456','watch-chapter/1234' ].map((elem, ind)=>{
+ {true &&<nav className='bg-red-400 flex gap-2 absolute bottom-0 left-0'>
+  {['register', 'login', 'Profile', 'Create-Course','create-chapter/123456/true', 'create-chapter/123456/false','watch-chapter/1234' ].map((elem, ind)=>{
     return<Link key={ind} to={`/${elem}`}>{elem}</Link>
   })}
 </nav> }
