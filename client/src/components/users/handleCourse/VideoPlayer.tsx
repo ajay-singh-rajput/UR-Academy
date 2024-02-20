@@ -5,7 +5,7 @@ import { useAppSelector } from '../../store/store';
 import { useNavigate } from 'react-router-dom';
 
 function VideoPlayer() {
-    const {isAuth} = useAppSelector(state=>state.user);
+  const {isAuth} = useAppSelector(state=>state.user);
   const navigate = useNavigate()
   const checkUserAuth = ()=>{
     !isAuth && navigate('/login')

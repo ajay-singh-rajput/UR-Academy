@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <>
     
-     <div className={`h-full top-0 flex flex-col md:flex-row absolute w-full`}>
+     <div className={`h-full top-0 text-gray-300 flex flex-col md:flex-row absolute w-full`}>
         <div className={`md:w-1/2  bg-[#334155] p-3 pt-[13vh]`}>
             <h1 className={`text-5xl font-extrabold text-end hidden md:flex md:flex-col`}><span>GROW UP </span>  <span>EVERY</span></h1>
             <h1 className={`text-7xl text-center font-extrabold md:hidden`}><span>GROW UP </span> <span className={`text-lime-400 `}> YOUR SKILL</span> <span>EVERY MINUTES</span></h1>

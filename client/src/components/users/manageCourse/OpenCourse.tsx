@@ -66,10 +66,10 @@ const OpenCourse = () => {
             </div>
             </div>
         </div>
-        <div className='md:w-1/2 w-full py-3 pr-3'>
+        <div className=' p-6 flex flex-col gap-3'>
         { CourseData?.chapter ? CourseData.chapter.map((elem:any,ind:number)=>{
             return<div key={ind} onClick={()=>openChapterHandler(elem)} className='w-full'>
-            <div className={`p-4 flex gap-2 text-4xl text-gray-400 hover:text-[#01DFC4] cursor-pointer hover:border-[1px] border-2 border-gray-800 hover:border-[#01DFC4] rounded-xl`}>
+            <div className={`p-4 flex gap-2 text-2xl text-gray-400 hover:text-[#01DFC4] cursor-pointer hover:border-[1px] border-2 border-gray-800 hover:border-[#01DFC4] rounded-xl`}>
             <i className="ri-play-circle-line"></i><h1>{elem.title}</h1>
             </div>
         </div>
