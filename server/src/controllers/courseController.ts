@@ -126,6 +126,12 @@ export const deleteCourse = catchAsyncError(async (req: IGetUserAuthInfoRequest,
   res.json({ message: "Course Delete successfully" });
 });
 
+export const getCourseDetails = catchAsyncError(async (req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) => {
+  const course = await CourseModel.findById(req.params.id);
+  if (!course) return next(new ErrorHandler('Course not found', 404)); 
+  res.json({course})
+})
+
 
 //! managing subscription of courses
 

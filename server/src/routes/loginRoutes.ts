@@ -1,6 +1,7 @@
 import express, { Router } from 'express';
 import { courseThumbnail, fetchUserCreatedCourses, fetchUserDetails, fetchUserSubscribedCourses, homePage, loginUser, registerUser, userAvatar, userForgetLink, userResetPassword, userSendMail, userSignOut, userUpdate, verifyUserLink, verifyUserOTP } from '../controllers/loginController';
 import { isAuthenticated } from '../middlewares/auth';
+import { getCourseDetails } from '../controllers/courseController';
 const router:Router = express.Router();
 
 
@@ -9,6 +10,9 @@ router.get('/',homePage);
 
 //* POST /fetchUserDetails
 router.post('/fetchUserDetails',isAuthenticated, fetchUserDetails)
+
+//* POST /fetchCourseDetails/:id
+router.post('/fetchCourseDetails/:id',isAuthenticated, getCourseDetails)
 
 //* POST /fetchUserCreatedCourses
 router.post('/fetchUserCreatedCourses',isAuthenticated, fetchUserCreatedCourses)
