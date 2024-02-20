@@ -104,7 +104,7 @@ useEffect(() => {
     </div>
     {isLoading ? <Loading />:''}
 
- {true &&<nav className='bg-red-400 flex gap-2 absolute bottom-0 left-0'>
+ {false &&<nav className='bg-red-400 flex gap-2 absolute bottom-0 left-0'>
   {['register', 'login', 'Profile', 'Create-Course','create-chapter/123456/true', 'create-chapter/123456/false','watch-chapter/1234' ].map((elem, ind)=>{
     return<Link key={ind} to={`/${elem}`}>{elem}</Link>
   })}

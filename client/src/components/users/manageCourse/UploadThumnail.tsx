@@ -2,9 +2,10 @@ import { RiCloseCircleLine, RiImageCircleLine } from '@remixicon/react'
 import React, { useEffect, useState } from 'react'
 import SignCss from '../forms/Sign.module.css'
 import axios from '../../../config/axios'
-import { useAppDispatch } from '../../store/store'
+import { useAppDispatch, useAppSelector } from '../../store/store'
 import { activeLoading, deactivateLoading } from '../../store/slices/loadingSlice'
 import { receivedError } from '../../store/slices/erroHandlerSlice'
+import { useNavigate } from 'react-router-dom'
 
 const UploadThumbnail = (props:any) => {
 
@@ -45,6 +46,14 @@ const UploadThumbnail = (props:any) => {
       }
     }
     
+    const {isAuth} = useAppSelector(state=>state.user);
+  const navigate = useNavigate()
+  const checkUserAuth = ()=>{
+    !isAuth && navigate('/login')
+  }
+  useEffect(()=>{
+    checkUserAuth();
+  }, [isAuth])
     
    
   return (

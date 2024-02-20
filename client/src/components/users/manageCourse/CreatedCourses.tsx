@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import MyCourseCard from '../../course/MyCourseCard'
 import ccStyle from '../../../modulCss/CreatedCourse.module.css'
 import axios from '../../../config/axios'
+import { useAppSelector } from '../../store/store'
+import { useNavigate } from 'react-router-dom'
 
 const CreatedCourses = () => {
 
@@ -24,6 +26,15 @@ const CreatedCourses = () => {
         
       }
     }, [])
+
+    const {isAuth} = useAppSelector(state=>state.user);
+  const navigate = useNavigate()
+  const checkUserAuth = ()=>{
+    !isAuth && navigate('/login')
+  }
+  useEffect(()=>{
+    checkUserAuth();
+  }, [isAuth])
     
 
   return (

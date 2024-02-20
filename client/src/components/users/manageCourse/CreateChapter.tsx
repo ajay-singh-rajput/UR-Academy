@@ -1,10 +1,10 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import SignCss from '../forms/Sign.module.css'
 import axios from '../../../config/axios'
 import { useNavigate, useParams } from 'react-router-dom';
 import UploadThumbnail from './UploadThumnail';
 import { RiBallPenLine, RiFileTextLine, RiVideoAddLine } from '@remixicon/react';
-import { useAppDispatch } from '../../store/store';
+import { useAppDispatch, useAppSelector } from '../../store/store';
 import { receivedError } from '../../store/slices/erroHandlerSlice';
 
 const CreateChapter = () => {
@@ -61,6 +61,14 @@ const CreateChapter = () => {
             console.log('create error', error)
         }
     }
+
+    const {isAuth, user} = useAppSelector(state=>state.user);
+  const checkUserAuth = ()=>{
+    !isAuth && navigate('/login')
+  }
+  useEffect(()=>{
+    checkUserAuth();
+  }, [isAuth])
 
     return (
         <div className=''>

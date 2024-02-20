@@ -35,7 +35,7 @@ const LogIn = () => {
   };
 
   useEffect(() => {
-    isAuth && navigate('/Profile')
+    isAuth && navigate(-1)
     return () => {
     }
   }, [isAuth])

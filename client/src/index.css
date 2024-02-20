@@ -4,6 +4,9 @@
 
 /* styles.css */
 
+body{
+  background: #223243;
+}
 .navContainer{
   z-index: 99;
 }

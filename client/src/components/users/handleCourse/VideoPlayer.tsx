@@ -1,8 +1,18 @@
 import React, { useRef, useState, useEffect } from 'react';
 import VidCss from '../../../modulCss/VideoPlayer.module.css'
 import {  RiFullscreenExitLine, RiFullscreenLine, RiPauseLine, RiPlayLine, RiSkipBackLine, RiSkipForwardLine,  RiVolumeMuteLine, RiVolumeUpLine } from '@remixicon/react';
+import { useAppSelector } from '../../store/store';
+import { useNavigate } from 'react-router-dom';
 
 function VideoPlayer() {
+    const {isAuth} = useAppSelector(state=>state.user);
+  const navigate = useNavigate()
+  const checkUserAuth = ()=>{
+    !isAuth && navigate('/login')
+  }
+  useEffect(()=>{
+    checkUserAuth();
+  }, [isAuth])
     const containerRef = useRef<HTMLDivElement>(null);
     const mainVideoRef = useRef<HTMLVideoElement>(null);
     const blurVidRef = useRef<HTMLVideoElement>(null);
@@ -31,6 +41,9 @@ function VideoPlayer() {
     };
 
     useEffect(() => {
+
+        
+
         const container = containerRef.current;
         const mainVideo = mainVideoRef.current;
         const blurVid = blurVidRef.current;
@@ -136,7 +149,7 @@ function VideoPlayer() {
     };
 
     return (
-        <div  ref={containerRef} className={`${VidCss.container} ${showControls && VidCss.showControls} ${isFullscreen ? VidCss.fullscreen : ""} w-full`}>
+        <div  ref={containerRef} className={`${VidCss.container} ${showControls && VidCss.showControls} ${isFullscreen ? VidCss.fullscreen : ""} w-full aspect-video m-auto`}>
     <div className={VidCss.wrapper}>
         <div className={VidCss.videoTimeline} onClick={onTimelineClick}>
             <div className={VidCss.progressArea}>
