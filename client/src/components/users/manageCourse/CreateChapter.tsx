@@ -55,14 +55,14 @@ const CreateChapter = () => {
         }
         try {
             const {data} = await axios.post(`course/create-chapter/${courseID}/${chapterID}`,formData);
-            console.log('aa gya data',data)
-            navigate('/Profile')
+            console.log('aa gya data',data);
+            navigate(`/Course/Course/${courseID}`);
         } catch (error) {
             console.log('create error', error)
         }
     }
 
-    const {isAuth, user} = useAppSelector(state=>state.user);
+    const {isAuth} = useAppSelector(state=>state.user);
   const checkUserAuth = ()=>{
     !isAuth && navigate('/login')
   }

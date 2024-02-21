@@ -105,10 +105,11 @@ export const editChapter = catchAsyncError(async (req: IGetUserAuthInfoRequest, 
 export const deleteChapter = catchAsyncError(async (req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) => {
   const course = await CourseModel.findById(req.params.courseID).exec();
   if (!course) return next(new ErrorHandler('Course does not available', 404));
-  const chapterIndex = course.chapter.findIndex((thisValue, index) => { if (thisValue.id === req.params.chapterID) { return index } });
-  course.chapter.slice(1, chapterIndex);
+  const chapterIndex = course.chapter.findIndex((thisValue, index) => thisValue.id === req.params.chapterID);
+  if(chapterIndex === -1)return next(new ErrorHandler('Chapter does not available', 404));
+  course.chapter.splice(chapterIndex, 1);
   await course.save();
-  res.json({ message: "Chapter Deleted successfully" });
+  res.json({ message: `Chapter Deleted successfully` });
 });
 
 export const editCourse = catchAsyncError(async (req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) => {
@@ -120,8 +121,9 @@ export const editCourse = catchAsyncError(async (req: IGetUserAuthInfoRequest, r
 export const deleteCourse = catchAsyncError(async (req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) => {
   const course = await CourseModel.findByIdAndDelete(req.params.courseID)
   const user = await UserModel.findById(req.id)
-  const courseIndex = user?.createdCourses.findIndex((thisValue) => thisValue === req.params.courseID);
-  user?.createdCourses.splice(1, courseIndex);
+  const courseIndex = user?.createdCourses.findIndex((thisValue) => thisValue.toString() === req.params.courseID);
+  if(courseIndex === -1)return next(new ErrorHandler('Course does not available', 404));
+  user?.createdCourses.splice(courseIndex || 0, 1);
   await user?.save();
   res.json({ message: "Course Delete successfully" });
 });

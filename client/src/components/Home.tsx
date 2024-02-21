@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import homeCss from '../modulCss/Home.module.css'
-import video from '../res/video.mp4'
 import video2 from '../res/student_-_73007 (540p).mp4'
-import axios from 'axios'
 
 const Home = () => {
   
