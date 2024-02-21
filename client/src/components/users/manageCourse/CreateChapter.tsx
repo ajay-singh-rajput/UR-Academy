@@ -8,7 +8,6 @@ import { useAppDispatch, useAppSelector } from '../../store/store';
 import { receivedError } from '../../store/slices/erroHandlerSlice';
 
 const CreateChapter = () => {
-    const [file, setFile] = useState<File | null>(null);
     const {courseID, thumb} = useParams();
     const [fileData, setFileData] = useState<any>();
     const [chapterID, setChapterID] = useState<String>();
@@ -21,7 +20,6 @@ const CreateChapter = () => {
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
       if (e.target.files && e.target.files.length > 0) {
-        setFile(e.target.files[0]);
         const videoFile = e.target.files[0]
           const formData = new FormData();
           formData.append('file', videoFile as File);
