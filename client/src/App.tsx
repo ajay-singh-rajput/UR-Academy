@@ -85,11 +85,11 @@ useEffect(() => {
 
   return (
     <>
-    <div className='pt-[12vh]  bg-[#223243]  min-h-screen '>
+    <div className='pt-[12vh]  bg-[#223243]  min-h-screen relative z-10'>
       <div className=''>
 
     <Navbar />
-      </div>
+      </div >
     <Routes>
 
       <Route path='/' element={<Home/>}/>
@@ -102,8 +102,8 @@ useEffect(() => {
       <Route path='/watch-chapter/:courseID' element={<WatchCourse/>}/>
       <Route path='/Course/Course/:courseID' element={<OpenCourse/>}/>
     </Routes>
-    <Footer/>
     </div>
+    <Footer/>
     {isLoading ? <Loading />:''}
 
  {false &&<nav className='bg-red-400 flex gap-2 absolute bottom-0 left-0'>

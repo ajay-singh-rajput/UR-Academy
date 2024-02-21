@@ -124,7 +124,7 @@
   border-right: 1px solid #00dfc4;
 }
 
-.container .form .inputBox input[type="submit"] {
+.container .form .inputBox input[type="submit"], .buyNowBtn {
   background: #00dfc4;
   color: #223243;
   padding: 10px 0;

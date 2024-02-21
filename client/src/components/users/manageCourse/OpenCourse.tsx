@@ -5,6 +5,8 @@ import { useAppDispatch, useAppSelector } from '../../store/store'
 import { receivedError } from '../../store/slices/erroHandlerSlice'
 import WatchCourse from '../handleCourse/WatchCourse'
 import signCss from '../forms/Sign.module.css'
+import logo from '../../../images/logo.png'
+import { toast } from 'react-toastify'
 
 const OpenCourse = () => {
     const {isAuth, user} = useAppSelector(state=>state.user);
@@ -20,6 +22,7 @@ const OpenCourse = () => {
     const [CourseData, setCourseData] = useState(Object);
     const dispatch = useAppDispatch()
     const [isOpenChapter, setIsOpenChapter] = useState(false)
+    const [isBuy, setIsBuy] = useState(false)
 
     const [watchCourse, setWatchCourse] = useState()
     const [OpenCourseMenu, setOpenCourseMenu] = useState(false)
@@ -28,7 +31,11 @@ const OpenCourse = () => {
         try {
             const {data} = await axios.post(`/fetchCourseDetails/${courseID}`);
             setCourseData(data.course);
-            console.log(data.course)
+            // console.log(data.course)
+            if((user?.subscribedCourses.toString().includes(courseID)) || (data?.course.createdBy == user?._id)){
+              // console.log(user?.subscribedCourses.toString(),courseID,'ek bar or true',data?.course.createdBy, true,user?._id )
+              setIsBuy(true)
+            }
         } catch (error:any) {
             if(error.response){
                 dispatch(receivedError({isSuccess:false, message:error?.response.data.message}))
@@ -44,8 +51,12 @@ const OpenCourse = () => {
     }, [])
 
     const openChapterHandler = (e:any)=>{
+      if (isBuy) {
         setIsOpenChapter(true)
         setWatchCourse(e)
+      } else {
+        toast.info('Buy Course to watch chapter')
+      }
     }
     const deleteChapterHandler = async(chapterData:any)=>{
       try {
@@ -73,8 +84,52 @@ const OpenCourse = () => {
           }
     }
     }
+
+   
     
-    
+  
+    const fetchOrderId = async () => {
+      try {
+        const response = await axios.post(`/course/buy-course/generate-orderID/${courseID}`);
+        console.log('res', response)
+        const options = {
+          key: 'rzp_test_8eJ3Bw4Wj5FYAd',
+          amount: response.data.order.amount,
+          currency: 'INR',
+          name: 'UR Academy',
+          description: 'Test Transaction',
+          image: logo,
+          order_id: response.data.order.id,
+          handler: async (response:any) => {
+            try {
+              await axios.post(`/course/buy-course/confirm-payment/${courseID}`, { response });
+              console.log('payment success')
+              fetchData();
+              setIsBuy(true)
+              // window.location.href = '/success';
+            } catch (error) {
+              console.error('Payment verification failed:', error);
+            }
+          },
+          prefill:{
+            name:user.firstName,
+            email:user.email,
+            contact:9876543210
+        },
+        notes:{
+            address:'UR Academy Payment Process'
+        },
+        theme:{
+            color:'#223243'
+        }
+        };
+        const rzp = new window.Razorpay(options);
+        rzp.open();
+      } catch (error) {
+        console.error('Error fetching order ID:', error);
+      }
+    };
+ 
 
   return (
     
@@ -90,17 +145,23 @@ const OpenCourse = () => {
                  onMouseLeave={()=>setOpenCourseMenu(false)}
                  className="ri-more-2-fill relative hover:text-[#ebebeb]">
                   {OpenCourseMenu&&<span className='ease-in-out duration-300 flex w-[220px] flex-col absolute text-base font-sans p-3 bg-[#334155] rounded-md'>
-                    <span className=' ease-in-out duration-300 hover:text-[#01DFC4]'><i className="ri-pencil-line"></i> Edit Course</span>
-                    <span onClick={deleteCourseHandler} className='ease-in-out duration-300 hover:text-red-400'><i className="ri-delete-bin-2-line"></i> Delete Course</span>
+                    <span className=' ease-in-out duration-300 hover:text-[#01DFC4] cursor-pointer'><i className="ri-pencil-line"></i> Edit Course</span>
+                    <span onClick={deleteCourseHandler} className='ease-in-out duration-300 hover:text-red-400 cursor-pointer'><i className="ri-delete-bin-2-line"></i> Delete Course</span>
+                    <span className=' ease-in-out duration-300 hover:text-[#01DFC4] cursor-pointer'><i className="ri-video-add-line"></i> Add Chapter</span>
                   </span>}
                  </i> }<i className="ri-book-2-line"></i> 
                   {CourseData?.name}</h1>
             <img className={`h-[40vh] aspect-video m-auto` } src={CourseData?.thumbnail?.url} alt={CourseData?.thumbnail?.fileId} />
                 <span className='flex justify-between gap-4 mt-3'>
-                    <span className={`text-gray-400`}><i className="ri-money-rupee-circle-line text-gray-500"> Price:- </i>{CourseData?.price}</span>
+                { CourseData?.createdBy === user?._id &&<span className={`text-gray-400`}><i className="ri-money-rupee-circle-line text-gray-500"> Price:- </i>{CourseData?.price}</span>}
                     <span className={`text-gray-400`}><i className="ri-book-read-line text-gray-500"> Chapter:- </i>{CourseData?.chapter?.length}</span>
                     <span className={`text-gray-400`}><i className="ri-list-check text-gray-500"> Category:- </i> {CourseData?.category}</span>
                 </span>
+                <div className='w-full flex justify-center'>
+                { !isBuy && <button className={`${signCss.buyNowBtn} px-12 py-3 rounded-lg hover:bg-[#56f8e5] active:scale-95`}
+                onClick={fetchOrderId}
+                > Buy Now <i className="ri-money-rupee-circle-line text-gray-500"> </i>Rs. {CourseData?.price}</button> }
+                </div>
               </div>
             <div className={` p-4 text-gray-300 w-full flex flex-col gap-4`}>
                 <h3 className='flex items-center gap-2 text-4xl'> {CourseData?.title}</h3>
@@ -122,6 +183,7 @@ const OpenCourse = () => {
             <i onClick={()=>deleteChapterHandler(elem)} title='Delete Chapter' className="ri-delete-bin-5-line hover:text-red-400"></i>
             </span>}
             </div>
+            
         </div>
         })
          : <h1>No Chapter</h1> }

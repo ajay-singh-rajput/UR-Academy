@@ -7,8 +7,8 @@ const Footer = () => {
         <div className={style.content}>
           <div className={style.top}>
             <div className={style.logoDetails}>
-              <i className="fab fa-slack"></i>
-              <span className={style.logoName}>CodingStella</span>
+              <i className="fab ri-book-2-line"></i>
+              <span className={style.logoName}>UR-Academy</span>
             </div>
             <div className={style.mediaIcons}>
               <a href="#"><i className="fab ri-facebook-fill"></i></a>
@@ -28,25 +28,18 @@ const Footer = () => {
             </ul>
             <ul className={style.box}>
               <li className={style.linkName}>Services</li>
-              <li><a href="#">App design</a></li>
-              <li><a href="#">Web design</a></li>
-              <li><a href="#">Logo design</a></li>
+              <li><a href="#">Upload Course</a></li>
+              <li><a href="#">All Course</a></li>
+              <li><a href="#">Your Course</a></li>
               <li><a href="#">Banner design</a></li>
             </ul>
             <ul className={style.box}>
               <li className={style.linkName}>Account</li>
               <li><a href="#">Profile</a></li>
               <li><a href="#">My account</a></li>
-              <li><a href="#">Preferences</a></li>
               <li><a href="#">Purchase</a></li>
             </ul>
-            <ul className={style.box}>
-              <li className={style.linkName}>Courses</li>
-              <li><a href="#">HTML & CSS</a></li>
-              <li><a href="#">JavaScript</a></li>
-              <li><a href="#">Photography</a></li>
-              <li><a href="#">Photoshop</a></li>
-            </ul>
+            
             <ul className={`${style.box} ${style.inputBox}`}>
               <li className={style.linkName}>Subscribe</li>
               <li><input type="text" placeholder="Enter your email" /></li>
@@ -56,7 +49,7 @@ const Footer = () => {
         </div>
         <div className={style.bottomDetails}>
           <div className={style.bottomText}>
-            <span className={style.copyrightText}>Copyright © 2021 <a href="#">CodingLab.</a>All rights reserved</span>
+            <span className={style.copyrightText}>Copyright © 2021 <a href="#">Ajay Rajput.</a>All rights reserved</span>
             <span className={style.policyTerms}>
               <a href="#">Privacy policy</a>
               <a href="#">Terms & conditions</a>
