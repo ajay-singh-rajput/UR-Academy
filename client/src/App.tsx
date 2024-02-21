@@ -19,6 +19,7 @@ import { Courser } from './components/otherComponents/Cursor'
 import CreatedCourses from './components/users/manageCourse/CreatedCourses'
 import OpenCourse from './components/users/manageCourse/OpenCourse'
 import 'remixicon/fonts/remixicon.css'
+import Footer from './components/otherComponents/Footer'
 // import LocomotiveScroll from 'locomotive-scroll';
 
 const App = () => {
@@ -101,6 +102,7 @@ useEffect(() => {
       <Route path='/watch-chapter/:courseID' element={<WatchCourse/>}/>
       <Route path='/Course/Course/:courseID' element={<OpenCourse/>}/>
     </Routes>
+    <Footer/>
     </div>
     {isLoading ? <Loading />:''}
 

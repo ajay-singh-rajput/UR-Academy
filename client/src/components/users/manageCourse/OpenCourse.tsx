@@ -110,7 +110,7 @@ const OpenCourse = () => {
         <div className=' w-full p-6 flex flex-col gap-3'>
         { CourseData?.chapter ? CourseData.chapter.map((elem:any,ind:number)=>{
             return<div key={ind}  className='w-full '>
-            <div className={`p-4 flex gap-2 justify-between text-2xl text-gray-400  cursor-pointer hover:border-[1px] border-2 border-gray-800 hover:border-[#01DFC4] rounded-xl`}>
+            <div className={`p-4 flex gap-2 justify-between text-2xl text-gray-400  cursor-pointer border-[1px] border-[#334155] hover:border-[#01DFC4] rounded-xl`}>
             <h1 className='hover:text-[#01DFC4]' onClick={()=>openChapterHandler(elem)} >
               <span>{ind + 1}. </span> 
               <i className="ri-play-circle-line hover:text-[#01DFC4]"></i>

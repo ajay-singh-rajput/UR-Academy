@@ -22,6 +22,13 @@ interface MulterS3File extends Express.Multer.File {
   location?: string;
 }
 
+export const fetchAllCourse = catchAsyncError(async (req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) => {
+  const Course = await CourseModel.find();
+  
+  if (!Course) return next(new ErrorHandler('No Course Available', 404));
+  res.json({ message: 'Fetched successfully', course: Course });
+});
+
 export const createCourse = catchAsyncError(async (req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) => {
   const newCourse = new CourseModel(req.body);
   const user = await UserModel.findById(req.id).exec();

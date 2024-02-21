@@ -11,8 +11,8 @@ const MyCourseCard = (props:any) => {
 
   return (
     <>
-    <div onClick={openCourse} className={`${cardCss.mainDiv} relative m-3 w-fit bg-[#334155] rounded-2xl p-1 overflow-hidden inline-block`}>
-        <div className={` h-48 rounded aspect-video bg-cover bg-no-repeat relative`}>
+    <div onClick={openCourse} className={`${cardCss.mainDiv} relative m-3 w-[350px] bg-[#334155] rounded-2xl p-1 overflow-hidden inline-block`}>
+        <div className={` rounded aspect-video bg-cover bg-no-repeat relative`}>
             <img className={`w-full h-full object-cover`}  src={courseData.thumbnail.url} alt='here us thumbnail' />
         <svg id="visual" className={`absolute top-0 left-0`} viewBox="0 0 960 540"  xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1">
@@ -46,7 +46,7 @@ const MyCourseCard = (props:any) => {
         </div>
         <div className='pl-3'>
             
-    <h2 className={`text-gray-200 text-start  my-2`}>{courseData.title}</h2>
+    <h2 className={`text-gray-200 text-start whitespace-nowrap overflow-hidden text-ellipsis my-2`}>{courseData.title}</h2>
     <p className='text-gray-400 text-xs'>{courseData.category}</p>
         </div>
     </div>
