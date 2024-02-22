@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import Navbar from './components/Navbar'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import SignIn from './components/users/forms/SignIn'
@@ -12,7 +12,6 @@ import Loading from './components/otherComponents/Loading'
 import { toast } from 'react-toastify'
 import { clearError } from './components/store/slices/erroHandlerSlice'
 import Create from './components/users/manageCourse/Create'
-import { Link } from 'react-router-dom'
 import CreateChapter from './components/users/manageCourse/CreateChapter'
 import WatchCourse from './components/users/handleCourse/WatchCourse'
 import { Courser } from './components/otherComponents/Cursor'
@@ -28,7 +27,16 @@ import Pixel from './components/otherComponents/TransitionEffect'
 import LocomotiveScroll from 'locomotive-scroll';
 
 const App = () => {
-  const locomotiveScroll = new LocomotiveScroll();
+  try {
+    
+    const locomotiveScroll = new LocsomotiveScroll();
+    try {
+      console.log(locomotiveScroll())
+    } catch (error) {
+      
+    }
+  } catch (error) {
+  }
   const location = useLocation()
 
   const {isAuth, user} = useAppSelector(state=>state.user);
