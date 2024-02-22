@@ -3,13 +3,14 @@ import homeCss from '../modulCss/Home.module.css'
 import video2 from '../res/student_-_73007 (540p).mp4'
 import axios from '../config/axios'
 import { receivedError } from './store/slices/erroHandlerSlice'
-import { useAppDispatch } from './store/store'
+import { useAppDispatch, useAppSelector } from './store/store'
 import MyCourseCard from './course/MyCourseCard'
 
 const Home = () => {
 
   const [allCourse, setAllCourse] = useState(Array);
   const dispatch = useAppDispatch()
+  const {isAuth, user} = useAppSelector(state => state.user)
 
   const fetchAllCourse = async()=>{
     try {
@@ -24,6 +25,8 @@ const Home = () => {
       }
     }
   }
+
+  
 
   useEffect(() => {
     fetchAllCourse()
@@ -58,6 +61,9 @@ const Home = () => {
     <div>
       
     </div>
+    <div className='mt-8'>
+      <h2 className='p-2 my-2 bg-slate-600 text-slate-300'>All Course</h2>
+    </div>
     <div className={`overflow-x-auto flex mb-5`}>
       {allCourse && allCourse?.map((elem:any, ind)=>{
         return<span key={ind}>
@@ -80,6 +86,70 @@ const Home = () => {
 
       }
     </div >
+    {isAuth && (
+  <>
+    <div className='mt-8'>
+      <h2 className='p-2 my-2 bg-slate-600 text-slate-300'>Your Creation</h2>
+    </div>
+    <div className={`overflow-x-auto flex mb-5`}>
+      {allCourse ? (
+        allCourse
+          .filter((elem: any) => elem.createdBy === user._id)
+          .map((elem: any, ind: number) => (
+            <span key={ind}>
+              <div key={ind} className=''>
+                <MyCourseCard
+                  courseData={{
+                    title: elem?.title,
+                    price: elem?.price,
+                    thumbnail: elem?.thumbnail,
+                    chapter: elem?.chapter.length,
+                    category: elem?.category,
+                    id: elem?._id
+                  }}
+                />
+              </div>
+            </span>
+          ))
+      ) : (
+        <h1>No Course Created Yet</h1>
+      )}
+    </div>
+  </>
+)}
+
+{isAuth && (
+  <>
+    <div>
+      <h2 className='p-2 my-2 bg-slate-600 text-slate-300'>Subscribed Course</h2>
+    </div>
+    <div className={`overflow-x-auto flex mb-5`}>
+      {allCourse ? (
+        allCourse
+          .filter((elem: any) => user.subscribedCourses.includes(elem._id))
+          .map((elem: any, ind: number) => (
+            <span key={ind}>
+              <div key={ind} className=''>
+                <MyCourseCard
+                  courseData={{
+                    title: elem?.title,
+                    price: elem?.price,
+                    thumbnail: elem?.thumbnail,
+                    chapter: elem?.chapter.length,
+                    category: elem?.category,
+                    id: elem?._id
+                  }}
+                />
+              </div>
+            </span>
+          ))
+      ) : (
+        <h1>No Course Buy Yet</h1>
+      )}
+    </div>
+  </>
+)}
+
     
     </>
   )

@@ -21,10 +21,13 @@ import OpenCourse from './components/users/manageCourse/OpenCourse'
 import 'remixicon/fonts/remixicon.css'
 import Footer from './components/otherComponents/Footer'
 import EditProfile from './components/users/profile/EditProfile'
-// import LocomotiveScroll from 'locomotive-scroll';
+import About from './components/About'
+import Contact from './components/Contact'
+// import 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'
+import LocomotiveScroll from 'locomotive-scroll';
 
 const App = () => {
-  // const locomotiveScroll = new LocomotiveScroll();
+  const locomotiveScroll = new LocomotiveScroll();
 
   const {isAuth, user} = useAppSelector(state=>state.user);
   const {isLoading} = useAppSelector(state=> state.loading);
@@ -100,6 +103,8 @@ useEffect(() => {
       <Route path='/Upload Course' element={<Create/>}/>
       <Route path='/Manage Course' element={<CreatedCourses/>}/>
       <Route path='/Edit Profile' element={<EditProfile/>}/>
+      <Route path='/About' element={<About/>}/>
+      <Route path='/Contact Us' element={<Contact/>}/>
       <Route path='/create-chapter/:courseID/:thumb' element={<CreateChapter/>}/>
       <Route path='/watch-chapter/:courseID' element={<WatchCourse/>}/>
       <Route path='/Course/Course/:courseID' element={<OpenCourse/>}/>

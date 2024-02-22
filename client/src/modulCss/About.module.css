@@ -1,0 +1,132 @@
+@import url('https://use.fontawesome.com/releases/v5.6.1/css/all.css');
+@import url('https://fonts.googleapis.com/css?family=Cairo:300,600,700,900');
+
+.aboutBody {
+  font-family: 'Cairo', sans-serif;
+  font-weight: 300;
+  letter-spacing: .025rem;
+  color: #494949;
+}
+
+.aboutBody h1 {
+  font-weight: 900;
+}
+
+.aboutBody h2, .aboutBody h3 {
+  font-weight: 700;
+}
+
+.aboutBody h4, .aboutBody h5, .aboutBody h6 {
+  font-weight: 600;
+}
+
+.aboutBody p {
+  color: #6c757d;
+}
+
+.aboutBody img {
+  max-width: 100%;
+}
+
+.aboutSection {
+  width: 100%;
+  height: 100vh;
+}
+
+.leftHeader {
+  position: sticky;
+  top: 0;
+  left: 0;
+  color: #fff;
+  height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url('https://source.unsplash.com/4kkYkFNfJV8/706x900');
+  background-size: cover;
+  padding: 4rem;
+}
+
+.leftHeader::before {
+  background-color: #fff;
+  position: absolute;
+  content: '';
+  bottom: 50px;
+  left: 30px;
+  margin: 0 1rem;
+  width: 80%;
+  height: 2px;
+}
+
+.leftHeader::after {
+  background-color: #fff;
+  position: absolute;
+  content: '';
+  bottom: 50px;
+  left: 30px;
+  margin: 0 1rem;
+  height: 80%;
+  width: 2px;
+}
+
+.leftHeader h2 {
+  margin-left: 4rem;
+}
+
+.vCenterBox {
+  min-height: 100%;
+}
+
+.subHeading {
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .15rem;
+  word-spacing: .05rem;
+}
+
+.aboutData {
+  position: relative;
+}
+
+.aboutData::before {
+  position: absolute;
+  content: '\003c/ ABOUT \003e';
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  text-align: center;
+  font-size: .8rem;
+  font-weight: 900;
+  color: #dee2e6; 
+  background-color: #fff;
+  width: 8rem;
+}
+
+.aboutData i {
+  color: #f12d2d;
+}
+
+.aboutData p {
+  font-size: .7rem;
+  letter-spacing: .05rem;
+  word-spacing: .2rem;
+}
+.aboutData .dataNumber {
+  color: #494949;
+  font-size: 1.2rem;
+}
+
+.icon18 {
+  font-size: 1.8rem;
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .leftHeader::before {
+    width: 70%;
+  }
+}
+
+@media (min-height: 590px) {
+  .leftHeader::after {
+    height: 85%;
+  }
+}

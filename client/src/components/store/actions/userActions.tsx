@@ -31,7 +31,13 @@ export const asyncSignUpUser = (data:{otp:string,email:string}) => async(dispatc
         dispatch(receivedError({isSuccess:true,message:'successfully account created'}))
     } catch (error:any) {
         if(error.response){
-            dispatch(receivedError({isSuccess:false, message:error?.response.data.message}))
+            if(error.response.data.message === 'jwt expired' ){
+                dispatch(logOutUser())
+                dispatch(receivedError({isSuccess:false, message:"Login Expired, login again"}))
+            }else{
+
+                dispatch(receivedError({isSuccess:false, message:error?.response.data.message}))
+            }
         } else{
             dispatch(receivedError({isSuccess:false, message:'unable to connect with server'}))
         }
@@ -47,7 +53,13 @@ export const asyncLogInUser = (user:object) => async(dispatch:any, getState:()=>
         dispatch(receivedError({isSuccess:true,message:'Logged In Successfully'}))
     } catch (error:any) {
         if(error.response){
-            dispatch(receivedError({isSuccess:false, message:error?.response.data.message}))
+            if(error.response.data.message === 'jwt expired' ){
+                dispatch(logOutUser())
+                dispatch(receivedError({isSuccess:false, message:"Login Expired, login again"}))
+            }else{
+
+                dispatch(receivedError({isSuccess:false, message:error?.response.data.message}))
+            }
         } else{
             dispatch(receivedError({isSuccess:false, message:'unable to connect with server'}))
         }

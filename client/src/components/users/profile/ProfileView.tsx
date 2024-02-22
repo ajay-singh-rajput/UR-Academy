@@ -1,13 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import css from './Profile.module.css'
 import { RiImageAddLine, RiMailLine, RiMapPinUserLine, RiPhoneLine } from '@remixicon/react'
-import Card from '../../course/Card'
-import { useAppSelector } from '../../store/store'
+import { useAppDispatch, useAppSelector } from '../../store/store'
 import { useNavigate } from 'react-router-dom'
+import axios from '../../../config/axios'
+import { receivedError } from '../../store/slices/erroHandlerSlice'
+import MyCourseCard from '../../course/MyCourseCard'
 
 const ProfileView = () => {
 
   const {isAuth, user} = useAppSelector(state=>state.user);
+  const [allCourse, setAllCourse] = useState(Array);
+  const dispatch = useAppDispatch()
+
   const navigate = useNavigate()
   const checkUserAuth = ()=>{
     !isAuth && navigate('/login')
@@ -15,6 +20,28 @@ const ProfileView = () => {
   useEffect(()=>{
     checkUserAuth();
   }, [isAuth])
+
+  const fetchAllCourse = async()=>{
+    try {
+      const {data} = await axios.get('/course/fetchAllCourse')
+      setAllCourse(data.course)
+    } catch (error:any) {
+      console.log(error)
+      if(error.response){
+        dispatch(receivedError({isSuccess:false, message:error?.response.data.message}))
+      } else{
+        dispatch(receivedError({isSuccess:false, message:'unable to connect with server'}))
+      }
+    }
+  }
+
+  
+
+  useEffect(() => {
+    fetchAllCourse()
+  
+    
+  }, [])
 
   return (
   
@@ -35,19 +62,100 @@ const ProfileView = () => {
               </div>
               
             </div>
-            <div className={`flex flex-col bg-red-800 gap-2`}>
-              <span className={`p-2`}>Options</span>
-              <div>
-                <span></span>
-              </div>
-            </div>
+            
             <div className={`flex items-center justify-center flex-col text-center gap-2 my-2 `}>
               <p className={`text-[#33ffff] `}>Tips</p>
               <h3>Do you know ?</h3>
               <p className={`text-[#d1e1e7ad] `}>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum labore, ea ex consectetur quae explicabo suscipit neque alias magnam cupiditate vitae modi.</p>
             </div>
-            <div><h3>Your Courses</h3></div>
-            <div className={`w-full h-fit flex gap-2 flex-wrap items-center justify-center bg-[#223243]`}> <Card/> <Card/> <Card/> <Card/></div>
+            <div>
+      <h2 className='p-2 my-2 bg-slate-600 text-slate-300'>All Course</h2>
+    </div>
+    <div className={`overflow-x-auto flex mb-5`}>
+      {allCourse && allCourse?.map((elem:any, ind)=>{
+        return<span key={ind}>
+        
+        <div key={ind} className=''>
+<MyCourseCard
+        courseData={{
+          title:elem?.title,
+          price:elem?.price,
+          thumbnail:elem?.thumbnail,
+          chapter:elem?.chapter.length,
+          category:elem?.category,
+          id:elem?._id
+        }}
+        />
+        </div>
+        </span>
+        
+      })
+
+      }
+    </div >
+    {isAuth && (
+  <>
+    <div>
+      <h2 className='p-2 my-2 bg-slate-600 text-slate-300'>Your Creation</h2>
+    </div>
+    <div className={`overflow-x-auto flex mb-5`}>
+      {allCourse ? (
+        allCourse
+          .filter((elem: any) => elem.createdBy === user._id)
+          .map((elem: any, ind: number) => (
+            <span key={ind}>
+              <div key={ind} className=''>
+                <MyCourseCard
+                  courseData={{
+                    title: elem?.title,
+                    price: elem?.price,
+                    thumbnail: elem?.thumbnail,
+                    chapter: elem?.chapter.length,
+                    category: elem?.category,
+                    id: elem?._id
+                  }}
+                />
+              </div>
+            </span>
+          ))
+      ) : (
+        <h1>No Course Created Yet</h1>
+      )}
+    </div>
+  </>
+)}
+
+{isAuth && (
+  <>
+    <div>
+      <h2 className='p-2 my-2 bg-slate-600 text-slate-300'>Subscribed Course</h2>
+    </div>
+    <div className={`overflow-x-auto flex mb-5`}>
+      {allCourse ? (
+        allCourse
+          .filter((elem: any) => user.subscribedCourses.includes(elem._id))
+          .map((elem: any, ind: number) => (
+            <span key={ind}>
+              <div key={ind} className=''>
+                <MyCourseCard
+                  courseData={{
+                    title: elem?.title,
+                    price: elem?.price,
+                    thumbnail: elem?.thumbnail,
+                    chapter: elem?.chapter.length,
+                    category: elem?.category,
+                    id: elem?._id
+                  }}
+                />
+              </div>
+            </span>
+          ))
+      ) : (
+        <h1>No Course Buy Yet</h1>
+      )}
+    </div>
+  </>
+)}
         </div>
     </div>
     

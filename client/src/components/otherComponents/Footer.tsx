@@ -1,5 +1,6 @@
 import React from 'react';
 import style from '../../modulCss/Footer.module.css'
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
@@ -21,23 +22,23 @@ const Footer = () => {
           <div className={style.linkBoxes}>
             <ul className={style.box}>
               <li className={style.linkName}>Company</li>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">Contact us</a></li>
-              <li><a href="#">About us</a></li>
-              <li><a href="#">Get started</a></li>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/Contact Us">Contact us</Link></li>
+              <li><Link to="/About">About us</Link></li>
+              <li><Link to="/register">Get started</Link></li>
             </ul>
             <ul className={style.box}>
               <li className={style.linkName}>Services</li>
-              <li><a href="#">Upload Course</a></li>
-              <li><a href="#">All Course</a></li>
-              <li><a href="#">Your Course</a></li>
-              <li><a href="#">Banner design</a></li>
+              <li><Link to="/Upload Course">Upload Course</Link></li>
+              <li><Link to="/">All Course</Link></li>
+              <li><Link to="/Profile">Your Course</Link></li>
+              <li><Link to="#">Banner design</Link></li>
             </ul>
             <ul className={style.box}>
               <li className={style.linkName}>Account</li>
-              <li><a href="#">Profile</a></li>
-              <li><a href="#">My account</a></li>
-              <li><a href="#">Purchase</a></li>
+              <li><Link to="/Profile">Profile</Link></li>
+              <li><Link to="/Profile">My account</Link></li>
+              <li><Link to="/Profile">Purchase</Link></li>
             </ul>
             
             <ul className={`${style.box} ${style.inputBox}`}>
@@ -49,10 +50,10 @@ const Footer = () => {
         </div>
         <div className={style.bottomDetails}>
           <div className={style.bottomText}>
-            <span className={style.copyrightText}>Copyright © 2021 <a href="#">Ajay Rajput.</a>All rights reserved</span>
+            <span className={style.copyrightText}>Copyright © 2021 <Link to="#">Ajay Rajput.</Link>All rights reserved</span>
             <span className={style.policyTerms}>
-              <a href="#">Privacy policy</a>
-              <a href="#">Terms & conditions</a>
+              <Link to="#">Privacy policy</Link>
+              <Link to="#">Terms & conditions</Link>
             </span>
           </div>
         </div>
