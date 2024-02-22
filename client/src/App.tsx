@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Navbar from './components/Navbar'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import SignIn from './components/users/forms/SignIn'
 import LogIn from './components/users/forms/LogIn'
 import ProfileView from './components/users/profile/ProfileView'
@@ -24,15 +24,18 @@ import EditProfile from './components/users/profile/EditProfile'
 import About from './components/About'
 import Contact from './components/Contact'
 // import 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'
+import Pixel from './components/otherComponents/TransitionEffect'
 import LocomotiveScroll from 'locomotive-scroll';
 
 const App = () => {
   const locomotiveScroll = new LocomotiveScroll();
+  const location = useLocation()
 
   const {isAuth, user} = useAppSelector(state=>state.user);
   const {isLoading} = useAppSelector(state=> state.loading);
   const {isSuccess, message} = useAppSelector(state => state.errorSlice);
   const dispatch = useAppDispatch()
+  const [transition, setTransition] = useState(true)
   // const stickyElement = useRef(null)
 
   const showMessage = ()=>{
@@ -80,23 +83,33 @@ const App = () => {
 useEffect(() => {
   
   testApi();
-
+  
   return () => {
     
   }
 }, [])
+useEffect(()=>{
+  // console.log(location)
+  setTransition(true);
+  setTimeout(() => {
+    setTransition(false)
+    console.log('making true again');
+    
+  }, 1600);
+
+},[location])
 
 
   return (
     <>
-    <div className='pt-[12vh]  bg-[#223243]  min-h-screen relative z-10'>
+    <div  className='pt-[12vh]  bg-[#223243]  min-h-screen relative z-10'>
       <div className=''>
 
     <Navbar />
       </div >
     <Routes>
 
-      <Route path='/' element={<Home/>}/>
+      <Route  path='/' element={<Home/>}/>
       <Route path='/register' element={<SignIn/>}/>
       <Route path='/login' element={<LogIn/>}/>
       <Route path='/Profile' element={<ProfileView/>}/>
@@ -112,12 +125,7 @@ useEffect(() => {
     </div>
     <Footer/>
     {isLoading ? <Loading />:''}
-
- {false &&<nav className='bg-red-400 flex gap-2 absolute bottom-0 left-0'>
-  {['register', 'login', 'Profile', 'Create-Course','create-chapter/123456/true', 'create-chapter/123456/false','watch-chapter/1234' ].map((elem, ind)=>{
-    return<Link key={ind} to={`/${elem}`}>{elem}</Link>
-  })}
-</nav> }
+    {transition && <div className='fixed top-0 left-0 w-full h-full z-50'> <Pixel trans={{transition, setTransition}} /></div>}
 <Courser/>
     </>
   )
