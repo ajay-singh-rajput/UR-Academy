@@ -6,7 +6,6 @@ import { asyncSignUpUser } from '../../store/actions/userActions';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import axios from '../../../config/axios'
 import {toast} from 'react-toastify'
-import Loading from '../../otherComponents/Loading';
 
 const SignIn = () => {
   const dispatch = useAppDispatch()

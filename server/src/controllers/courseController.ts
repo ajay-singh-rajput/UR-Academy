@@ -7,8 +7,6 @@ import { ErrorHandler } from "../utils/ErrorHandler";
 import { v4 as uuid } from 'uuid';
 import Razorpay = require("razorpay");
 import { validatePaymentVerification } from "razorpay/dist/utils/razorpay-utils";
-import { UploadedFile } from "express-fileupload";
-import path = require("path");
 import { initImagekit } from "../utils/imageKit";
 const imagekit = initImagekit();
 
@@ -95,18 +93,20 @@ export const createChapter = catchAsyncError(async (req: IGetUserAuthInfoRequest
 
 });
 
+
 export const editChapter = catchAsyncError(async (req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) => {
   const course = await CourseModel.findById(req.params.courseID).exec();
   if (!course) return next(new ErrorHandler('Course does not available', 404));
-  const chapterIndex = course.chapter.findIndex((thisValue, index) => { if (thisValue.id === req.params.chapterID) { return index } });
-  course.chapter[chapterIndex] = {
-    id: req.params.chapterID,
-    title: req.body.title,
-    description: req.body.description,
-    // sourceLink: req.body.sourceLink
-  }
+
+  const chapter = course.chapter.find((thisValue) => thisValue.id === req.params.chapterID);
+  if (!chapter) return next(new ErrorHandler('Chapter does not exist', 404));
+
+  chapter.title = req.body.title;
+  chapter.description = req.body.description;
+  // chapter.sourceLink = req.body.sourceLink;
+
   await course.save();
-  res.json({ message: "Data updated successfully", chapter: course.chapter[chapterIndex] })
+  res.json({ message: "Data updated successfully", chapter });
 });
 
 export const deleteChapter = catchAsyncError(async (req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) => {

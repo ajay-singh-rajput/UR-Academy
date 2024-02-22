@@ -20,6 +20,7 @@ import CreatedCourses from './components/users/manageCourse/CreatedCourses'
 import OpenCourse from './components/users/manageCourse/OpenCourse'
 import 'remixicon/fonts/remixicon.css'
 import Footer from './components/otherComponents/Footer'
+import EditProfile from './components/users/profile/EditProfile'
 // import LocomotiveScroll from 'locomotive-scroll';
 
 const App = () => {
@@ -98,6 +99,7 @@ useEffect(() => {
       <Route path='/Profile' element={<ProfileView/>}/>
       <Route path='/Upload Course' element={<Create/>}/>
       <Route path='/Manage Course' element={<CreatedCourses/>}/>
+      <Route path='/Edit Profile' element={<EditProfile/>}/>
       <Route path='/create-chapter/:courseID/:thumb' element={<CreateChapter/>}/>
       <Route path='/watch-chapter/:courseID' element={<WatchCourse/>}/>
       <Route path='/Course/Course/:courseID' element={<OpenCourse/>}/>

@@ -5,9 +5,8 @@ import { useAppDispatch, useAppSelector } from '../../store/store'
 import { receivedError } from '../../store/slices/erroHandlerSlice'
 import WatchCourse from '../handleCourse/WatchCourse'
 import signCss from '../forms/Sign.module.css'
-import logo from '../../../images/logo.png'
+import logo from '../../../images/logo_2.png'
 import { toast } from 'react-toastify'
-import UploadThumbnail from './UploadThumnail'
 import { activeLoading, deactivateLoading } from '../../store/slices/loadingSlice'
 import { RiBallPenLine, RiBook2Line, RiBookOpenLine, RiCloseCircleLine, RiFileTextLine, RiImageCircleLine, RiListView, RiMoneyRupeeCircleLine } from '@remixicon/react'
 
@@ -92,8 +91,6 @@ const OpenCourse = () => {
       }
     }
   }
-
-
 
 
   const fetchOrderId = async () => {
@@ -260,8 +257,6 @@ const OpenCourse = () => {
   ];
 
 
-
-
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCourseName(event.target.value);
   }
@@ -288,7 +283,6 @@ const OpenCourse = () => {
 
   // # chapter details edit
   const changeChapterDetailsHandler = (elem:any)=>{
-    console.log('clicked')
     setChangeChapterDetails(true)
     setChapterID(elem.id);
     setDescription(elem.description)
@@ -314,6 +308,7 @@ const OpenCourse = () => {
           const {data} = await axios.post(`course/edit-chapter/${courseID}/${chapterID}`,formData);
           console.log('aa gya data',data);
           setChangeChapterDetails(false)
+          fetchData()
           // navigate(`/Course/Course/${courseID}`);
       } catch (error) {
           console.log('create error', error)
@@ -447,7 +442,7 @@ const OpenCourse = () => {
                     {/* <span>Course Category</span> */}
                   </div>
                   <div className={`${signCss.inputBox}`}>
-                    <input type="submit" value="Create Course" />
+                    <input type="submit" value="Update Course" />
                   </div>
                 </form>
               </div>
@@ -474,7 +469,7 @@ const OpenCourse = () => {
                 <span>Description</span>
               </div>
               <div className={`${signCss.inputBox}`}>
-                <input type="submit" value="Create Chapter" />
+                <input type="submit" value="Update Chapter" />
               </div>
             </form>
           </div>

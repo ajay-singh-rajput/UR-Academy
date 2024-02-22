@@ -154,7 +154,9 @@ export const userForgetLink = catchAsyncError(async (req: Request, res: Response
 export const userResetPassword = catchAsyncError(async (req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) => {
     const user = await UserModel.findById(req.id).exec()
     if (!user) return next(new ErrorHandler("User not found", 404))
-    user.password = req.body.password;
+    const isMatch = user.comparePassword(req.body.oldPassword);
+    if (!isMatch) return next(new ErrorHandler("Wrong Credentials", 401));
+    user.password = req.body.newPassword;
     await user.save();
     sendToken(user, 201, res);
 })
