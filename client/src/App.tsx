@@ -89,14 +89,10 @@ useEffect(() => {
   }
 }, [])
 useEffect(()=>{
-  // console.log(location)
   setTransition(true);
   setTimeout(() => {
     setTransition(false)
-    console.log('making true again');
-    
   }, 1600);
-
 },[location])
 
 

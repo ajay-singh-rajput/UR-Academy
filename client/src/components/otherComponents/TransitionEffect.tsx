@@ -34,7 +34,6 @@ const Pixel = ({trans}:any) => {
     }
 
     setTimeout(() => {
-        console.log('making true')
         setIsAnimation(true)
     }, 800);
 

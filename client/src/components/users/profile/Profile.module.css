@@ -4,7 +4,8 @@
     
 }
 .profileInfoDiv{
-    -webkit-box-shadow: 0 0 21px -1px #000000;
--moz-box-shadow: 0 0 21px -1px #000000;
-box-shadow: 0 0 21px -1px #000000;
+    border-radius: 2vmax;
+    -webkit-box-shadow: 0 0 5px -1px #000000;
+-moz-box-shadow: 0 0 5px -1px #000000;
+box-shadow: 0 0 5px -1px #000000;
 }

@@ -174,7 +174,7 @@ const Navbar = () => {
                   animate={controls}
                   className={`${navCss.optionContainer} flex-col gap-2 w-[100%] md:w-1/2 text-slate-400 `}
                 >
-                  {['Home', 'About', 'Courses', 'Contact Us'].map((elem, ind) => (
+                  {['Home', 'About', 'Contact Us'].map((elem, ind) => (
                     <motion.div
                       key={ind}
                       initial={{ opacity: 0, x: 50 }}
