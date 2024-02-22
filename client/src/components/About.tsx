@@ -20,8 +20,8 @@ const About = () => {
                 </div>
 
                 <div className="flex mb-5">
-                  <div className="md:mb-5 mb-4 p-2">
-                    <img src="https://source.unsplash.com/35sVnCCynWA/784x1250" alt="Colorful Wall" />
+                  <div className="md:mb-5 mb-4 p-2 w-1/2">
+                    <img className='' src="https://source.unsplash.com/35sVnCCynWA/784x1250" alt="Colorful Wall" />
                   </div>
                   <div className="w-full md:w-2/3 md:pl-4">
                     <div className="mb-5 md:mb-4">
