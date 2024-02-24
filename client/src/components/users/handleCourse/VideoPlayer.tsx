@@ -4,7 +4,7 @@ import {  RiFullscreenExitLine, RiFullscreenLine, RiPauseLine, RiPlayLine, RiSki
 import { useAppSelector } from '../../store/store';
 import { useNavigate } from 'react-router-dom';
 
-function VideoPlayer() {
+function VideoPlayer({data}:any) {
   const {isAuth} = useAppSelector(state=>state.user);
   const navigate = useNavigate()
   const checkUserAuth = ()=>{
@@ -187,7 +187,7 @@ function VideoPlayer() {
             </li>
         </ul>
     </div>
-    <video  ref={mainVideoRef}  src="https://vaibhav1663.github.io/Youtube-Ambient-Mode/demo-video.mp4" poster="https://vaibhav1663.github.io/Youtube-Ambient-Mode/poster.jpg"></video>
+    <video  ref={mainVideoRef}  src={ data.url } poster="https://vaibhav1663.github.io/Youtube-Ambient-Mode/poster.jpg"></video>
 </div>
 
     );

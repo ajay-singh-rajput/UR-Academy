@@ -4,7 +4,7 @@ import { RiBook2Line, RiBookOpenLine, RiListView, RiMoneyRupeeCircleLine } from 
 import { useAppSelector } from '../../store/store'
 import { useNavigate } from 'react-router-dom'
 import axios from '../../../config/axios'
-import UploadThumbnail from './UploadThumnail'
+// import UploadThumbnail from './UploadThumnail'
 
 const Create = () => {
   const [courseName, setCourseName] = useState('')

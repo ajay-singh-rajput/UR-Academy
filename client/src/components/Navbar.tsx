@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import navCss from '../modulCss/Nav.module.css'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion, useAnimation } from 'framer-motion'
-import { RiSearch2Line, RiUser2Line } from "@remixicon/react";
+import {  RiUser2Line } from "@remixicon/react";
 import { useAppDispatch, useAppSelector } from './store/store';
 import { asyncLogOutUser } from './store/actions/userActions';
 
@@ -12,9 +12,8 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMenuOpenCheck, setIsMenuOpenCheck] = useState(false);
   const controls = useAnimation();
-  const [searchValue, setSearchValue] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const { isAuth, user } = useAppSelector(state => state.user);
+  const { isAuth } = useAppSelector(state => state.user);
   const [isActive, setIsActive] = useState(false)
   const dispatch = useAppDispatch()
   const navigate = useNavigate();

@@ -1,10 +1,9 @@
 import { motion, useMotionValue, useSpring } from 'framer-motion'
-import React, { useEffect, useState } from 'react'
+import  { useEffect } from 'react'
 
 
 export const Courser = () => {
-    const [isHovered, setIsHovered] = useState(false)
-    const cursorSize = isHovered ? 60 : 30;
+    const cursorSize =  30;
     const mouse = {
         x:useMotionValue(0),
         y:useMotionValue(0)
@@ -32,13 +31,7 @@ export const Courser = () => {
             mouse.y.set(clientY - cursorSize / 2)
         // }
     }
-    const manageMouseOver = (e:any)=>{
-        setIsHovered(true);
-    }
-    const manageMouseLeave = (e:any)=>{
-        setIsHovered(false);
-
-    }
+    
     useEffect(()=>{
         window.addEventListener('mousemove',manageMouseMove);
         // stickyElement.current.addEventListener('mouseover',manageMouseOver)

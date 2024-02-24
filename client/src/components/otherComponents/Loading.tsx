@@ -1,4 +1,3 @@
-import React from 'react';
 import loadingCss from './Loading.module.css';
 import { useAppSelector } from '../store/store';
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import SignCss from './Sign.module.css';
 import { RiFile2Line, RiLock2Fill, RiMailLine, RiPhoneLine, RiUser5Line, RiUserLine, RiUserLocationLine } from '@remixicon/react';
 import { Link, useNavigate } from 'react-router-dom';

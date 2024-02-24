@@ -1,11 +1,10 @@
 import { Dispatch } from '@reduxjs/toolkit';
 import axios from '../../../config/axios';
 import { authUser, logOutUser } from '../slices/userSlice';
-import { RootState } from '../store';
 import { receivedError } from '../slices/erroHandlerSlice';
 import { activeLoading, deactivateLoading } from '../slices/loadingSlice';
 
-export const asyncFetchUser = () => async(dispatch: Dispatch, getState:()=> RootState)=>{
+export const asyncFetchUser = () => async(dispatch: Dispatch)=>{
     dispatch(activeLoading())
     try {
         const {data} = await axios.post('/fetchUserDetails');
@@ -22,7 +21,7 @@ export const asyncFetchUser = () => async(dispatch: Dispatch, getState:()=> Root
     dispatch(deactivateLoading())
 }
 
-export const asyncSignUpUser = (data:{otp:string,email:string}) => async(dispatch:any, getState:()=>RootState) =>{
+export const asyncSignUpUser = (data:{otp:string,email:string}) => async(dispatch:any) =>{
     dispatch(activeLoading())
     try {
         // console.log('otp', otp)
@@ -45,7 +44,7 @@ export const asyncSignUpUser = (data:{otp:string,email:string}) => async(dispatc
     dispatch(deactivateLoading())
 }
 
-export const asyncLogInUser = (user:object) => async(dispatch:any, getState:()=>RootState) =>{
+export const asyncLogInUser = (user:object) => async(dispatch:any) =>{
     dispatch(activeLoading())
     try {
         await axios.post('/login', user);
@@ -67,7 +66,7 @@ export const asyncLogInUser = (user:object) => async(dispatch:any, getState:()=>
     dispatch(deactivateLoading())
 }
 
-export const asyncLogOutUser = () => async(dispatch:any, getState:()=>RootState)=>{
+export const asyncLogOutUser = () => async(dispatch:any)=>{
     dispatch(activeLoading())
     try {
         await axios.get('/logout');

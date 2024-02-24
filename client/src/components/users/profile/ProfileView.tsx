@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import css from './Profile.module.css'
-import { RiImageAddLine, RiMailLine, RiMapPinUserLine, RiPhoneLine } from '@remixicon/react'
+import {  RiMailLine, RiMapPinUserLine, RiPhoneLine } from '@remixicon/react'
 import { useAppDispatch, useAppSelector } from '../../store/store'
 import { useNavigate } from 'react-router-dom'
 import axios from '../../../config/axios'

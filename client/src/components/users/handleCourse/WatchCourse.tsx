@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import VideoPlayer from './VideoPlayer'
-import { RiArrowDropDownLine, RiArrowDropUpLine, RiBook2Line, RiChat1Line, RiEye2Line, RiStarSmileLine, RiTimeLine } from '@remixicon/react'
+import { RiArrowDropDownLine, RiArrowDropUpLine, RiBook2Line, RiChat1Line, RiEye2Line, RiStarSmileLine } from '@remixicon/react'
 import style from '../../../modulCss/Watch.module.css'
 import { useAppSelector } from '../../store/store'
 import { useNavigate } from 'react-router-dom'
@@ -26,7 +26,7 @@ const WatchCourse = (props:any) => {
   {data ?<div className={`flex flex-col md:flex-row bg-[#223243]`}>
     <div className={` flex items-center justify-center flex-col gap-3`}>
         <h1 className={`w-full text-start pl-8 text-3xl`} >{data.title}</h1>
-  <VideoPlayer />
+  <VideoPlayer data={{url:data.mediaLink}} />
   <div className={`w-full flex-col flex gap-3`}>
     <div className={`text-xs text-gray-400 flex gap-1 justify-between w-full ${style.chapterDetailsContainer}`}>
         <span><RiBook2Line/>Chapter No <span>1 </span></span> 

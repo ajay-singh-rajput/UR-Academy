@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import SignCss from '../forms/Sign.module.css'
 import axios from '../../../config/axios'
 import { useNavigate, useParams } from 'react-router-dom';

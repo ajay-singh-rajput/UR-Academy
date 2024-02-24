@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import SignCss from '../forms/Sign.module.css';
 import { RiCloseCircleLine, RiImageCircleLine, RiPhoneLine, RiUser5Line, RiUserLine, RiUserLocationLine } from '@remixicon/react';
-import { Link, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import axios from '../../../config/axios'
 import {toast} from 'react-toastify'

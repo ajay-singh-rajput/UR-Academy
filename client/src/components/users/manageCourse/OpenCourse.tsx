@@ -11,6 +11,8 @@ import { activeLoading, deactivateLoading } from '../../store/slices/loadingSlic
 import { RiBallPenLine, RiBook2Line, RiBookOpenLine, RiCloseCircleLine, RiFileTextLine, RiImageCircleLine, RiListView, RiMoneyRupeeCircleLine } from '@remixicon/react'
 
 const OpenCourse = () => {
+
+  
   const { isAuth, user } = useAppSelector(state => state.user);
   const navigate = useNavigate()
   const checkUserAuth = () => {
@@ -128,7 +130,8 @@ const OpenCourse = () => {
           color: '#223243'
         }
       };
-      const rzp = new window.Razorpay(options);
+      const rzp = new (window as any).Razorpay(options);
+
       rzp.open();
     } catch (error) {
       console.error('Error fetching order ID:', error);

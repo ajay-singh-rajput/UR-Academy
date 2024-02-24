@@ -24,22 +24,22 @@ import About from './components/About'
 import Contact from './components/Contact'
 // import 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'
 import Pixel from './components/otherComponents/TransitionEffect'
-import LocomotiveScroll from 'locomotive-scroll';
+// import LocomotiveScroll from 'locomotive-scroll';
 
 const App = () => {
-  try {
+  // try {
     
-    const locomotiveScroll = new LocsomotiveScroll();
-    try {
-      console.log(locomotiveScroll())
-    } catch (error) {
+  //   const locomotiveScroll = new LocsomotiveScroll();
+  //   try {
+  //     console.log(locomotiveScroll())
+  //   } catch (error) {
       
-    }
-  } catch (error) {
-  }
+  //   }
+  // } catch (error) {
+  // }
   const location = useLocation()
 
-  const {isAuth, user} = useAppSelector(state=>state.user);
+  const {isAuth} = useAppSelector(state=>state.user);
   const {isLoading} = useAppSelector(state=> state.loading);
   const {isSuccess, message} = useAppSelector(state => state.errorSlice);
   const dispatch = useAppDispatch()

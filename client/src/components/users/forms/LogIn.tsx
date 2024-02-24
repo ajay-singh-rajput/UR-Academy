@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  React, { useEffect, useState } from 'react';
 import SignCss from './Sign.module.css';
 import { RiLock2Fill, RiMailLine } from '@remixicon/react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -12,7 +12,7 @@ const LogIn = () => {
   const navigate = useNavigate()
   const {isAuth} = useAppSelector(state=>state.user)
   const [verifyOtp, setVerifyOtp] = useState(false);
-  const {isSuccess, message} = useAppSelector(state=> state.errorSlice);
+  const { message} = useAppSelector(state=> state.errorSlice);
   const [otp, setOtp] = useState('')
 
 

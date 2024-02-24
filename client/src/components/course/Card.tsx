@@ -1,7 +1,6 @@
 import {  RiFolderVideoLine, RiStarFill, RiTimeLine } from '@remixicon/react'
-import React from 'react'
 
-const Card = (props:any) => {
+const Card = () => {
   return (
     <>
     <div className={`w-72 bg-[#475569]`}>

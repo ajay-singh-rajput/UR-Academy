@@ -10,7 +10,6 @@ import { useNavigate } from 'react-router-dom'
 const UploadThumbnail = (props:any) => {
 
   const [close, setClose] = useState(true)
-  const [file, setFile] = useState<File | null>(null);
   const dispatch = useAppDispatch()
   
 
@@ -21,7 +20,6 @@ const UploadThumbnail = (props:any) => {
       console.log('file change')
       if (e.target.files && e.target.files.length > 0) {
         console.log('file change b')
-        setFile(e.target.files[0]);
         const imageFile = e.target.files[0]
         console.log('file change c')
           const formData = new FormData();
