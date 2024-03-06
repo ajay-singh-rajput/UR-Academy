@@ -28,7 +28,7 @@ const OpenCourse = () => {
   const [isOpenChapter, setIsOpenChapter] = useState(false)
   const [isBuy, setIsBuy] = useState(false)
 
-  const [watchCourse, setWatchCourse] = useState()
+  const [watchCourse, setWatchCourse] = useState(Object)
   const [OpenCourseMenu, setOpenCourseMenu] = useState(false)
   const [changeThumbnail, setChangeThumbnail] = useState(false)
   const [changeCourseDetails, setChangeCourseDetails] = useState(false)
@@ -59,10 +59,14 @@ const OpenCourse = () => {
     return () => { }
   }, [])
 
-  const openChapterHandler = (e: any) => {
+  const openChapterHandler = (e: any, thumbnail:any) => {
     if (isBuy) {
+      const courseData = {
+        course:e,
+        thumbnail:thumbnail
+      }
       setIsOpenChapter(true)
-      setWatchCourse(e)
+      setWatchCourse(courseData)
     } else {
       toast.info('Buy Course to watch chapter')
     }
@@ -362,7 +366,7 @@ const OpenCourse = () => {
           {CourseData?.chapter ? CourseData.chapter.map((elem: any, ind: number) => {
             return <div key={ind} className='w-full '>
               <div className={`p-4 flex gap-2 justify-between text-2xl text-gray-400  cursor-pointer border-[1px] border-[#334155] hover:border-[#01DFC4] rounded-xl`}>
-                <h1 className='hover:text-[#01DFC4]' onClick={() => openChapterHandler(elem)} >
+                <h1 className='hover:text-[#01DFC4]' onClick={() => openChapterHandler(elem, CourseData?.thumbnail?.url)} >
                   <span>{ind + 1}. </span>
                   <i  className="ri-play-circle-line hover:text-[#01DFC4]"></i>
                   {elem.title}

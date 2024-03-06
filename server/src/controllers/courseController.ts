@@ -154,8 +154,8 @@ export const generateOrderId = catchAsyncError(async (req: IGetUserAuthInfoReque
     receipt: `${uuid()}`
   };
   instance.orders.create(options, function (err, order) {
-    
-    if(err)next(new ErrorHandler('Unable to Proceed Payment',500));
+    console.log(err)
+    if(err)return next(new ErrorHandler('Unable to Proceed Payment',500));
     res.json({order});
   })
 

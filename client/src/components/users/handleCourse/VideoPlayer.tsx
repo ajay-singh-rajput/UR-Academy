@@ -187,7 +187,7 @@ function VideoPlayer({data}:any) {
             </li>
         </ul>
     </div>
-    <video  ref={mainVideoRef}  src={ data.url } poster="https://vaibhav1663.github.io/Youtube-Ambient-Mode/poster.jpg"></video>
+    <video  ref={mainVideoRef}  src={ data.url } poster={data.thumbnail}></video>
 </div>
 
     );

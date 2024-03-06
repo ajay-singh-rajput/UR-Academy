@@ -17,7 +17,8 @@ const WatchCourse = (props:any) => {
   }, [isAuth])
 
     const [openDes, setOpenDes] = useState(false)
-    const {data} = props
+    const data = props?.data.course
+
     useEffect(()=>{
         console.log(data)
     }, [data])
@@ -26,7 +27,7 @@ const WatchCourse = (props:any) => {
   {data ?<div className={`flex flex-col md:flex-row bg-[#223243]`}>
     <div className={` flex items-center justify-center flex-col gap-3`}>
         <h1 className={`w-full text-start pl-8 text-3xl`} >{data.title}</h1>
-  <VideoPlayer data={{url:data.mediaLink}} />
+  <VideoPlayer data={{url:data.mediaLink, thumbnail:props.data.thumbnail}} />
   <div className={`w-full flex-col flex gap-3`}>
     <div className={`text-xs text-gray-400 flex gap-1 justify-between w-full ${style.chapterDetailsContainer}`}>
         <span><RiBook2Line/>Chapter No <span>1 </span></span> 
