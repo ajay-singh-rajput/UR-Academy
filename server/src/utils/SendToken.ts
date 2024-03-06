@@ -4,6 +4,7 @@ import {IUser} from '../models/userModel'
 interface sendTokenOPtion {
     expires:Date;
     httpOnly:boolean;
+    secure:boolean,
 }
 
 export const sendToken = (user:IUser, statusCode:number, res:Response)=>{
@@ -14,6 +15,7 @@ export const sendToken = (user:IUser, statusCode:number, res:Response)=>{
             Date.now() + cookiesExpire * 20 * 60 * 60 *1000
         ),
         httpOnly:true,
+        secure:true,
     };
     res.status(statusCode)
     .cookie('token',token,options)
